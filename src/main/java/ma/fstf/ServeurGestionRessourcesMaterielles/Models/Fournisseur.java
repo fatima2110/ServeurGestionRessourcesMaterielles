@@ -20,9 +20,6 @@ public class Fournisseur {
     @OneToMany
     @JoinColumn(name = "fournisseur_id")
     private List<Proposition> propositions;
-    @OneToMany
-    @JoinColumn(name = "fournisseur_id")
-    private List<Message> messages;
 
     public List<Proposition> getPropositions() {
         return propositions;
@@ -72,11 +69,4 @@ public class Fournisseur {
         this.pass = pass;
     }
 
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
 }
