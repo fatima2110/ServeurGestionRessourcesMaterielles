@@ -1,17 +1,23 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table
 public class Proposition {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue
+    private Integer id;
     @Column
     private boolean status;
     @ManyToOne
@@ -20,36 +26,4 @@ public class Proposition {
     @OneToMany
     @JoinColumn(name = "proposition_id")
     private List<Materiel_Proposition> materiels_propositions;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Fournisseur getFournisseur() {
-        return fournisseur;
-    }
-
-    public void setFournisseur(Fournisseur fournisseur) {
-        this.fournisseur = fournisseur;
-    }
-
-    public List<Materiel_Proposition> getMateriels_propositions() {
-        return materiels_propositions;
-    }
-
-    public void setMateriels_propositions(List<Materiel_Proposition> materiels_propositions) {
-        this.materiels_propositions = materiels_propositions;
-    }
 }

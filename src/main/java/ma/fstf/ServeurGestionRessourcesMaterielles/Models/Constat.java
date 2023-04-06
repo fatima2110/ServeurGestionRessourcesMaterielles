@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Builder
@@ -15,15 +14,22 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table
-public class AppelOffre {
+public class Constat {
     @Id
     @GeneratedValue
     private Integer id;
     @Column
-    private LocalDate date_debut;
+    private LocalDate date_apparition;
     @Column
-    private LocalDate date_fin;
-    @OneToMany(mappedBy = "appelOffre")
-    private List<Materiel> materiels;
-
+    private String explication_panne;
+    @Column
+    private String frequence;
+    @Column
+    private String ordre;
+    @ManyToOne
+    @JoinColumn(name = "technicien_id")
+    private User technicien;
+    @ManyToOne
+    @JoinColumn(name = "materiel_id")
+    private Materiel materiel;
 }

@@ -6,24 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table
-public class AppelOffre {
+public class Produit {
     @Id
     @GeneratedValue
-    private Integer id;
+    private int id;
     @Column
-    private LocalDate date_debut;
+    private String nom;
     @Column
-    private LocalDate date_fin;
-    @OneToMany(mappedBy = "appelOffre")
-    private List<Materiel> materiels;
-
+    private String description;
+    @Column
+    private double prix;
 }

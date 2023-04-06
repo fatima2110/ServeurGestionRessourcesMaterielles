@@ -1,18 +1,29 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 import java.util.List;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class User {
+public class User implements UserDetails{
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue
+    private Integer id;
     @Column
     private String login;
     @Column
@@ -23,13 +34,13 @@ public class User {
     private String photo_profile;
     @Column
     private String prenom;
-    @Column
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @Column
     private String telephone;
     @OneToMany
     @JoinColumn(name = "technicien_id")
-    private List<Panne> pannes;
+    private List<Constat> constats;
     @OneToMany
     @JoinColumn(name = "emetteur_id")
     private List<Message> messages_envoyes;
@@ -37,91 +48,41 @@ public class User {
     @JoinColumn(name = "recepteur_id")
     private List<Message> messages_recus;
 
-    public String getId() {
-        return id;
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<Panne> getPannes() {
-        return pannes;
-    }
-
-    public void setPannes(List<Panne> pannes) {
-        this.pannes = pannes;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public String getPass() {
+    @Override
+    public String getPassword() {
         return pass;
     }
 
-    public String getPhoto_profile() {
-        return photo_profile;
+    @Override
+    public String getUsername() {
+        return login;
     }
 
-    public String getPrenom() {
-        return prenom;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getRole() {
-        return role;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public String getTelephone() {
-        return telephone;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public List<Message> getMessages_envoyes() {
-        return messages_envoyes;
-    }
-
-    public List<Message> getMessages_recus() {
-        return messages_recus;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public void setPhoto_profile(String photo_profile) {
-        this.photo_profile = photo_profile;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public void setMessages_envoyes(List<Message> messages_envoyes) {
-        this.messages_envoyes = messages_envoyes;
-    }
-
-    public void setMessages_recus(List<Message> messages_recus) {
-        this.messages_recus = messages_recus;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
