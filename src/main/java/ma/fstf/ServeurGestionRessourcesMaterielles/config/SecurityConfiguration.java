@@ -28,13 +28,16 @@ public class SecurityConfiguration {
     String urlPattern = "/api/v1/auth/**";
     RequestMatcher requestMatcher = new AntPathRequestMatcher(urlPattern);
     http
+            .cors()
+            .and()
             .csrf()
             .disable()
             .authorizeHttpRequests()
             .requestMatchers(requestMatcher)
             .permitAll()
             .anyRequest()
-            .authenticated()
+            //.authenticated()
+            .permitAll()
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

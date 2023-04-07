@@ -19,5 +19,5 @@ public class Imprimente extends Materiel{
     @Column
     private String resolution;
     @Column
-    private double vitesse;
+    private String vitesse;
 }

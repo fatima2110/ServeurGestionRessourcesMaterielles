@@ -15,17 +15,20 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Materiel {
     @Id
     @GeneratedValue
     private Integer id;
+    @Column
+    private String marque;
     @Column(unique = true)
     private String code_barre;
     @Column
     private double prix;
     @Column
     private LocalDate date_livraison;
+
     @Column
     private int duree_garentie;
     @ManyToOne
