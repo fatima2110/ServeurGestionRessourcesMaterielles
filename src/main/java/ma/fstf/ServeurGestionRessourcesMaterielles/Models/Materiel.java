@@ -1,5 +1,8 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table
+//sonIgnoreProperties("{appelOffre, constats, materiels_propositions}") //@JsonIgnore
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Materiel {
     @Id
@@ -28,18 +32,13 @@ public class Materiel {
     private double prix;
     @Column
     private LocalDate date_livraison;
-
     @Column
     private int duree_garentie;
     @ManyToOne
     @JoinColumn(name = "appel_offre_id")
     private AppelOffre appelOffre;
-    @OneToMany
-    @JoinColumn(name = "materiel_id")
-    private List<Constat> constats;
     @ManyToOne
     @JoinColumn(name = "ensiegnant_id")
+    @JsonIgnore
     private Ensiegnant ensiegnant;
-    @OneToMany(mappedBy = "materiel")
-    private List<Materiel_Proposition> materiels_propositions;
 }

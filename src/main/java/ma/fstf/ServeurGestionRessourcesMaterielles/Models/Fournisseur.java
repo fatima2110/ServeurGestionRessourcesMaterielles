@@ -29,7 +29,4 @@ public class Fournisseur {
     private String gerant;
     @Column
     private String pass;
-    @OneToMany
-    @JoinColumn(name = "fournisseur_id")
-    private List<Proposition> propositions;
 }

@@ -25,7 +25,7 @@ public class SecurityConfiguration {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    String urlPattern = "/api/v1/auth/**";
+    String urlPattern = "/api/auth/**";
     RequestMatcher requestMatcher = new AntPathRequestMatcher(urlPattern);
     http
             .cors()
@@ -45,11 +45,10 @@ public class SecurityConfiguration {
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
             .logout()
-            .logoutUrl("/api/v1/auth/logout")
+            .logoutUrl("/api/auth/logout")
             .addLogoutHandler(logoutHandler)
             .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
     ;
-
     return http.build();
   }
 }

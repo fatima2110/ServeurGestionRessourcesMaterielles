@@ -23,7 +23,4 @@ public class Proposition {
     @ManyToOne
     @JoinColumn(name = "fournisseur_id")
     private Fournisseur fournisseur;
-    @OneToMany
-    @JoinColumn(name = "proposition_id")
-    private List<Materiel_Proposition> materiels_propositions;
 }

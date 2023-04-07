@@ -1,5 +1,6 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +24,4 @@ public class AppelOffre {
     private LocalDate date_debut;
     @Column
     private LocalDate date_fin;
-    @OneToMany(mappedBy = "appelOffre")
-    private List<Materiel> materiels;
-
 }

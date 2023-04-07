@@ -22,7 +22,6 @@ public class Ordinateur extends Materiel{
     @Column
     private String ecran;
     @Column
-    private String marque;
-    @Column
     private String ram;
+
 }

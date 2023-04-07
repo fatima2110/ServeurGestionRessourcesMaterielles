@@ -1,5 +1,6 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,8 +18,4 @@ import java.util.List;
 public class Ensiegnant extends User{
     @Column
     private String departement;
-    @Column
-    private boolean status;//chef de departement ou non
-    @OneToMany(mappedBy = "ensiegnant")
-    private List<Materiel> materiels;
 }
