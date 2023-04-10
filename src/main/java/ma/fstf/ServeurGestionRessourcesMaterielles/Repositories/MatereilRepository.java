@@ -9,5 +9,8 @@ import java.util.List;
 
 @Repository
 public interface MatereilRepository extends JpaRepository<Materiel,Integer> {
-    List<Materiel> findMaterielByEnsiegnant(Ensiegnant ens);
+    List<Materiel> findMaterielByEnsiegnantAndAppelOffreNotNull(Ensiegnant ens);
+    Materiel findMaterielById(int id);
+    List<Materiel> findMaterielByEnsiegnantAndAppelOffreNull(Ensiegnant ens);
+
 }

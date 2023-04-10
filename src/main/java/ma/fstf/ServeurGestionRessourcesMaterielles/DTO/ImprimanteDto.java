@@ -5,17 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MaterielDto {
+public class ImprimanteDto {
     private int id;
-    private String enseignant;
-    private String marque;
-    private String code_barre;
-    private LocalDate date_affectation;
-    private int duree_garentie;
-    private boolean enPanne;
+    private String resolution;
+    private String vitesse;
 }

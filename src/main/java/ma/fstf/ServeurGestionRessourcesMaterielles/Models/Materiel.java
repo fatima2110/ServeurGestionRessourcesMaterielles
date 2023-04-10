@@ -3,10 +3,7 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,6 +27,8 @@ public class Materiel {
     private String code_barre;
     @Column
     private double prix;
+    @Column(columnDefinition = "boolean default false")
+    private boolean panne;
     @Column
     private LocalDate date_livraison;
     @Column

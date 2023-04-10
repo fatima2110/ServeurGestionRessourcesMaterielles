@@ -1,5 +1,6 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,5 +25,6 @@ public class Token {
     public boolean expired;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    //@JsonProperty(access = JsonProperty.Access.READ_WRITE)
     public User user;
 }
