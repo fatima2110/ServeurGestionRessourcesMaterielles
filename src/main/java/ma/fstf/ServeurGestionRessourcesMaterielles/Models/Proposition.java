@@ -1,11 +1,13 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,11 +21,13 @@ public class Proposition {
     @GeneratedValue
     private Integer id;
     @Column
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    private StatusPropo status;
     @ManyToOne
     @JoinColumn(name = "fournisseur_id")
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private Fournisseur fournisseur;
     @OneToMany
     @JoinColumn(name = "proposition_id")
-    private List<Materiel_Proposition> materiels_propositions;
+    private ArrayList<Materiel_Proposition> materiels_propositions;
 }

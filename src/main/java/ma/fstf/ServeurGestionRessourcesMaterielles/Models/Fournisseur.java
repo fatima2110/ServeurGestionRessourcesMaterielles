@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,5 +32,5 @@ public class Fournisseur {
     private String pass;
     @OneToMany
     @JoinColumn(name = "fournisseur_id")
-    private List<Proposition> propositions;
+    private ArrayList<Proposition> propositions;
 }

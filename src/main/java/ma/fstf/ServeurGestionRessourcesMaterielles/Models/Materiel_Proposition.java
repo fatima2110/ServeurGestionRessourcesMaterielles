@@ -2,6 +2,7 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,5 +27,6 @@ public class Materiel_Proposition {
     private Materiel materiel;
     @ManyToOne
     @JoinColumn(name = "proposition_id")
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private Proposition proposition;
 }
