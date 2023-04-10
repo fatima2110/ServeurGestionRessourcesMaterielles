@@ -45,14 +45,15 @@ public class AuthenticationService {
             request.getPassword()
         )
     );
-    var user = repository.findByLogin(request.getLogin())
-        .orElseThrow();
+    var user = repository.findByLogin(request.getLogin()).orElseThrow();
+    var role = repository.findRoleByLogin(request.getLogin());
     var jwtToken = jwtService.generateToken(user);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
-        .token(jwtToken)
-        .build();
+                                  .token(jwtToken)
+                                  .role(role)
+                                  .build();
   }
 
   private void saveUserToken(User user, String jwtToken) {

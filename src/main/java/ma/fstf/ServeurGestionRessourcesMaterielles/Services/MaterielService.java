@@ -12,11 +12,13 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.OrdinateurReposi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class MaterielService {
     @Autowired
     private MatereilRepository matereilRepository;
@@ -54,9 +56,15 @@ public class MaterielService {
         else
             throw new Exception("Enseignant n'existe pas");
     }
-
     public Ensiegnant getEnseignant(int id){
         Optional<Ensiegnant> optionalEnsiegnant = enseignantRepository.findById(id);
         return optionalEnsiegnant.orElse(null);
+    }
+
+    public void supprimerMaterielOrdinateur(int id) {
+        Ordinateur ordinateur = ordinateurRepository.findById(id).orElse(null);
+        if (ordinateur != null) {
+            ordinateurRepository.deleteById(id);
+        }
     }
 }
