@@ -3,10 +3,8 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table
-//sonIgnoreProperties("{appelOffre, constats, materiels_propositions}") //@JsonIgnore
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Materiel {
     @Id
@@ -30,6 +27,9 @@ public class Materiel {
     private String code_barre;
     @Column
     private double prix;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private MaterielState state = MaterielState.EnSERVICE;
     @Column
     private LocalDate date_livraison;
     @Column

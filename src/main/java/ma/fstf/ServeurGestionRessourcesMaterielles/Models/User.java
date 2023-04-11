@@ -39,8 +39,8 @@ public class User implements UserDetails{
     private Role role;
     @Column
     private String telephone;
-    @OneToMany(mappedBy = "user")
-    private List<Token> tokens;
+//    @OneToMany(mappedBy = "user")
+//    private List<Token> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

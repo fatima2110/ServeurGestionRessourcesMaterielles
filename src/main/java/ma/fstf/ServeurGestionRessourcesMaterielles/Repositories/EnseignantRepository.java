@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface EnseignantRepository extends JpaRepository<Ensiegnant, Integer> {
-
+    @Override
+    List<Ensiegnant> findAll();
+    List<Ensiegnant> findEnsiegnantByDepartementEquals(String deparetemt);
 }
