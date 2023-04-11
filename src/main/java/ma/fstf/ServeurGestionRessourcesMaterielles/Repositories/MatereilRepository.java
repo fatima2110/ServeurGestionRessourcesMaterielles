@@ -11,6 +11,6 @@ import java.util.List;
 public interface MatereilRepository extends JpaRepository<Materiel,Integer> {
     List<Materiel> findMaterielByEnsiegnantAndAppelOffreNotNull(Ensiegnant ens);
     Materiel findMaterielById(int id);
-    List<Materiel> findMaterielByEnsiegnantAndAppelOffreNull(Ensiegnant ens);
+    List<Materiel> findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(Ensiegnant ens);
 
 }

@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface OrdinateurRepository extends JpaRepository<Ordinateur,Integer> {
     Ordinateur findOrdinateurById(int id);
+    Ordinateur findOrdinateurByEnsiegnantId(int id);
 }

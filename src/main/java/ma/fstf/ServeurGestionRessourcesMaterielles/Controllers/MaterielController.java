@@ -1,9 +1,7 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Controllers;
 
 import lombok.AllArgsConstructor;
-import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.ImprimanteDto;
-import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.MaterielDto;
-import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.OrdinateurDto;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Imprimente;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
@@ -22,13 +20,13 @@ import java.util.List;
 public class MaterielController {
     @Autowired
     private MaterielService materielService;
-    @PostMapping("/saveOrdinateur")
-    public void saveOrdinateur(@RequestBody Ordinateur ordinateur){
-        materielService.saveOrdinateur(ordinateur);
+    @PostMapping("/saveOrdinateur/{id}")
+    public void saveOrdinateur(@RequestBody Ordinateur ordinateur,@PathVariable int id){
+        materielService.saveOrdinateur(ordinateur,id);
     }
-    @PostMapping("/saveImprimante")
-    public void saveImprimente(@RequestBody Imprimente imprimente){
-       materielService.saveImprimante(imprimente);
+    @PostMapping("/saveImprimante/{id}")
+    public void saveImprimente(@RequestBody Imprimente imprimente,@PathVariable int id){
+       materielService.saveImprimante(imprimente,id);
     }
     @GetMapping("/getMateriels/{id}")
     public ResponseEntity<List<MaterielDto>> getMateriels(@PathVariable int id) throws Exception {
@@ -65,12 +63,24 @@ public class MaterielController {
     public void editOrdinateur(@RequestBody Ordinateur ordinateur){
         materielService.editOrdinateur(ordinateur);
     }
+    @PutMapping("validOrdibateur")
+    public void validOrdinateurChef(@RequestBody Ordinateur ordinateur){
+        materielService.validOrdinateurChef(ordinateur);
+    }
     @PutMapping("editImprimente")
     public void editOrdinateur(@RequestBody Imprimente imprimente){
         materielService.editImprimente(imprimente);
     }
-    @GetMapping(value = "/getBesoinsChef/{departement}")
-    public ResponseEntity<List<Ensiegnant>> getBesoinsChef(@PathVariable String departement) throws Exception {
-        return new ResponseEntity<>(materielService.getMaterielsBesoins(departement), HttpStatus.OK);
+    @PutMapping("validImprimente")
+    public void validImprimente(@RequestBody Imprimente imprimente){
+        materielService.validImprimenteChef(imprimente);
+    }
+    @GetMapping(value = "/getBesoinsOrdinateurChef/{departement}")
+    public ResponseEntity<List<BesoinChefOrdinateurDto>> getBesoinsChef(@PathVariable String departement) throws Exception {
+        return new ResponseEntity<>(materielService.getMaterielsOrdinateursBesoins(departement), HttpStatus.OK);
+    }
+    @GetMapping(value = "/getBesoinsImprimentesChef/{departement}")
+    public ResponseEntity<List<BesoinChefImprimenteDto>> getBesoinsImprimentesChef(@PathVariable String departement) throws Exception {
+        return new ResponseEntity<>(materielService.getMaterielsImprimentesBesoins(departement), HttpStatus.OK);
     }
 }
