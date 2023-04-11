@@ -1,13 +1,8 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Services;
 
-import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.ImprimanteDto;
-import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.MaterielDto;
-import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.OrdinateurDto;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.EnseignantRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.ImprimanteRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.MatereilRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.OrdinateurRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +22,16 @@ public class MaterielService {
     private ImprimanteRepository imprimanteRepository;
     @Autowired
     private EnseignantRepository enseignantRepository;
-    public void saveOrdinateur(Ordinateur ordinateur){
+    @Autowired
+    private UserRepository userRepository;
+    public void saveOrdinateur(Ordinateur ordinateur,int id){
+        Ensiegnant ens=enseignantRepository.findById(id).get();
+        ordinateur.setEnsiegnant(ens);
         ordinateurRepository.save(ordinateur);
     }
-    public void saveImprimante(Imprimente imprimente){
+    public void saveImprimante(Imprimente imprimente,int id){
+        Ensiegnant ens=enseignantRepository.findById(id).get();
+        imprimente.setEnsiegnant(ens);
         imprimanteRepository.save(imprimente);
 
     }
@@ -48,7 +49,7 @@ public class MaterielService {
                         .duree_garentie(mat.getDuree_garentie())
                         .code_barre(mat.getCode_barre())
                         .enseignant(ens.getNom())
-                        .state(mat.getState())
+                        .enPanne(mat.isPanne())
 
                         .build();
                 list.add(materielDto);
@@ -61,7 +62,7 @@ public class MaterielService {
     public List<OrdinateurDto> getBesoinsOrdinateursOfEns(int id) throws Exception {
         List<OrdinateurDto> list = new ArrayList<>();
         Ensiegnant ens = getEnseignant(id);
-        List<Materiel> malist =matereilRepository.findMaterielByEnsiegnantAndAppelOffreNull(ens);
+        List<Materiel> malist =matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens);
         for (int i =0;i<malist.size();i++){
             Materiel mat = malist.get(i);
             Ordinateur ordinateur= getordinateur(mat.getId());
@@ -82,7 +83,7 @@ return  list;
     public List<ImprimanteDto> getBesoinsImprimentesOfEns(int id) throws Exception {
         List<ImprimanteDto> list = new ArrayList<>();
         Ensiegnant ens = getEnseignant(id);
-        List<Materiel> malist =matereilRepository.findMaterielByEnsiegnantAndAppelOffreNull(ens);
+        List<Materiel> malist =matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens);
         for (int i =0;i<malist.size();i++){
             Materiel mat = malist.get(i);
             Imprimente imprimente= getImprimente(mat.getId());
@@ -122,48 +123,102 @@ return  list;
     }
     public void enPanne(int id){
         Materiel mat=matereilRepository.findMaterielById(id);
-        if (mat.getState() != MaterielState.EnPANNE) {
-            mat.setState(MaterielState.EnPANNE);
-            System.out.println(mat.getState());
+        if (mat.isPanne() != true) {
+            mat.setPanne(true);
+            matereilRepository.save(mat);
+            System.out.println(mat.isPanne());
             //matereilRepository.save(mat.setPanne(true));
         }
     }
     public void enService(int id){
         Materiel mat=matereilRepository.findMaterielById(id);
-        if (mat.getState() != MaterielState.EnSERVICE) {
-            mat.setState(MaterielState.EnSERVICE);
-            System.out.println(mat.getState());
+        if (mat.isPanne() != false) {
+            mat.setPanne(false);
+            System.out.println(mat.isPanne());
+            matereilRepository.save(mat);
             //matereilRepository.save(mat.setPanne(true));
         }
     }
     public void editOrdinateur(Ordinateur newOrdinateur){
+        Ordinateur ordinateur =ordinateurRepository.findOrdinateurById(newOrdinateur.getId());
+        newOrdinateur.setEnsiegnant(ordinateur.getEnsiegnant());
+//newOrdinateur.getEnsiegnant().setId(idEnsi);
+this.ordinateurRepository.save(newOrdinateur);
+    }
+    public void editImprimente(Imprimente newImprimente){
+Imprimente imprimente1=imprimanteRepository.findImprimenteById(newImprimente.getId());
+newImprimente.setEnsiegnant(imprimente1.getEnsiegnant());
+        this.imprimanteRepository.save(newImprimente);
+    }
+    public List<BesoinChefOrdinateurDto> getMaterielsOrdinateursBesoins(String departement) throws Exception {
+        List<BesoinChefOrdinateurDto> list = new ArrayList<>();
+        List<Ensiegnant> ens=enseignantRepository.findEnsiegnantByDepartementEquals(departement);
+        for (int i =0;i<ens.size();i++){
+            System.out.println("enseignat"+ens.get(i).getNom());
+        List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens.get(i));
+        for (int j =0;j<matList.size();j++){
+                Materiel mat = matList.get(j);
+                if(mat!=null){
+           Ordinateur ordinateur=ordinateurRepository.findOrdinateurById(mat.getId());
+           if (ordinateur!=null){
+               User user= userRepository.findUserById(ens.get(i).getId());
+               if(user!=null){
+                BesoinChefOrdinateurDto materielOrdinateurDTO= BesoinChefOrdinateurDto.builder()
+                        .id(mat.getId())
+                        .nom(user.getNom())
+                        .prenom(user.getPrenom())
+                        .cpu(ordinateur.getCpu())
+                        .ram(ordinateur.getRam())
+                        .ecran(ordinateur.getEcran())
+                        .disque(ordinateur.getDisque())
 
+                        .build();
+              list.add(materielOrdinateurDTO);
+          }}
+//
+        }}
+        }
+        return list;
+    }
+
+    public List<BesoinChefImprimenteDto> getMaterielsImprimentesBesoins(String departement) throws Exception {
+        List<BesoinChefImprimenteDto> list = new ArrayList<>();
+        List<Ensiegnant> ens=enseignantRepository.findEnsiegnantByDepartementEquals(departement);
+        for (int i =0;i<ens.size();i++){
+            System.out.println("enseignat"+ens.get(i).getNom());
+            List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens.get(i));
+            for (int j =0;j<matList.size();j++){
+                Materiel mat = matList.get(j);
+                if(mat!=null){
+                    Imprimente imprimente=imprimanteRepository.findImprimenteById(mat.getId());
+                    if (imprimente!=null){
+                        User user= userRepository.findUserById(ens.get(i).getId());
+                        BesoinChefImprimenteDto besoinChefImprimenteDto= BesoinChefImprimenteDto.builder()
+                                .id(mat.getId())
+                                .nom(user.getNom())
+                                .prenom(user.getPrenom())
+                                .resolution(imprimente.getResolution())
+                                .vitesse(imprimente.getVitesse())
+                                .build();
+                        list.add(besoinChefImprimenteDto);
+                    }
+//
+                }}
+        }
+        return list;
+    }
+    public void validOrdinateurChef(Ordinateur newOrdinateur){
+        Ordinateur ordinateur =ordinateurRepository.findOrdinateurById(newOrdinateur.getId());
+        newOrdinateur.setEnsiegnant(ordinateur.getEnsiegnant());
+        newOrdinateur.setVerifie(true);
+//newOrdinateur.getEnsiegnant().setId(idEnsi);
         this.ordinateurRepository.save(newOrdinateur);
     }
-    public void editImprimente(Imprimente imprimente){
+    public void validImprimenteChef(Imprimente newImprimente){
+        Imprimente imprimente1=imprimanteRepository.findImprimenteById(newImprimente.getId());
+        newImprimente.setEnsiegnant(imprimente1.getEnsiegnant());
+        newImprimente.setVerifie(true);
+        this.imprimanteRepository.save(newImprimente);
+    }
 
-        this.imprimanteRepository.save(imprimente);
-    }
-    public List<Ensiegnant> getMaterielsBesoins(String departement) throws Exception {
-        //List<MaterielOrdinateurDTO> list = new ArrayList<>();
-        List<Ensiegnant> ens=enseignantRepository.findEnsiegnantByDepartementEquals(departement);
-//        for (int i =0;i<ens.size();i++){System.out.println("enseignat"+ens.get(i).getNom());
-//        List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNull(ens.get(i));
-//        for (int j =0;j<matList.size();j++){
-//            Materiel mat = matList.get(j);
-//            Ordinateur ordinateur=ordinateurRepository.getById(mat.getId());
-//            if (ordinateur!=null){
-//                MaterielOrdinateurDTO materielOrdinateurDTO= MaterielOrdinateurDTO.builder()
-//                        .cpu(ordinateur.getCpu())
-//                        .ram(ordinateur.getRam())
-//                        .ecran(ordinateur.getEcran())
-//                        .disque(ordinateur.getDisque())
-//                        .enseignant(ens.get(i).getNom())
-//                        .build();
-//                list.add(materielOrdinateurDTO);
-//            }
-//
-//        }}
-        return ens;
-    }
 }

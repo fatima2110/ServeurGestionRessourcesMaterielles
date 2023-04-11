@@ -27,13 +27,14 @@ public class Materiel {
     private String code_barre;
     @Column
     private double prix;
-    @Column
-    @Enumerated(EnumType.STRING)
-    private MaterielState state = MaterielState.EnSERVICE;
+    @Column(columnDefinition = "boolean default false")
+    private boolean panne;
     @Column
     private LocalDate date_livraison;
     @Column
     private int duree_garentie;
+    @Column(columnDefinition = "boolean default false")
+    private boolean verifie;
     @ManyToOne
     @JoinColumn(name = "appel_offre_id")
     private AppelOffre appelOffre;

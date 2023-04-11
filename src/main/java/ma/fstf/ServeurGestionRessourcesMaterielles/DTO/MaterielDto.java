@@ -18,5 +18,5 @@ public class MaterielDto {
     private String code_barre;
     private LocalDate date_affectation;
     private int duree_garentie;
-    private MaterielState state;
+    private boolean enPanne;
 }
