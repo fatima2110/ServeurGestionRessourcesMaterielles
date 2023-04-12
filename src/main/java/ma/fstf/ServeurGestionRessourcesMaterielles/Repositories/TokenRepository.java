@@ -3,10 +3,12 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface TokenRepository extends JpaRepository<Token,Integer> {
     @Query(value = """
       select t from Token t inner join User u\s

@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Materiel {
     @Id
     @GeneratedValue
@@ -31,12 +31,12 @@ public class Materiel {
     @ManyToOne
     @JoinColumn(name = "appel_offre_id")
     private AppelOffre appelOffre;
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "materiel_id")
-    private List<Constat> constats;
+    private List<Constat> constats;*/
     @ManyToOne
     @JoinColumn(name = "ensiegnant_id")
     private Ensiegnant ensiegnant;
-    @OneToMany(mappedBy = "materiel")
+   @OneToMany(mappedBy = "materiel")
     private List<Materiel_Proposition> materiels_propositions;
 }

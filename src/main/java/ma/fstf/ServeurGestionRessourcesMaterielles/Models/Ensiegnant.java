@@ -19,6 +19,6 @@ public class Ensiegnant extends User{
     private String departement;
     @Column
     private boolean status;//chef de departement ou non
-    @OneToMany(mappedBy = "ensiegnant")
-    private List<Materiel> materiels;
+   /* @OneToMany(mappedBy = "ensiegnant")
+    private List<Materiel> materiels;*/
 }

@@ -27,7 +27,9 @@ public class Proposition {
     @JoinColumn(name = "fournisseur_id")
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private Fournisseur fournisseur;
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "proposition_id")
-    private ArrayList<Materiel_Proposition> materiels_propositions;
+    private List<Materiel_Proposition> materiels_propositions;
+ */
 }
+

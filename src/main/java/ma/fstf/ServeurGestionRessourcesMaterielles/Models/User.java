@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User implements UserDetails{
     @Id
     @GeneratedValue
@@ -38,15 +38,15 @@ public class User implements UserDetails{
     private Role role;
     @Column
     private String telephone;
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "technicien_id")
-    private List<Constat> constats;
-    @OneToMany
+    private List<Constat> constats;*/
+   /* @OneToMany
     @JoinColumn(name = "emetteur_id")
-    private List<Message> messages_envoyes;
-    @OneToMany
+    private List<Message> messages_envoyes;*/
+  /*  @OneToMany
     @JoinColumn(name = "recepteur_id")
-    private List<Message> messages_recus;
+    private List<Message> messages_recus;*/
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;

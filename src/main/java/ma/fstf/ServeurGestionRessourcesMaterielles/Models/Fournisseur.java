@@ -30,7 +30,9 @@ public class Fournisseur {
     private String gerant;
     @Column
     private String pass;
-    @OneToMany
+   /* @OneToMany
     @JoinColumn(name = "fournisseur_id")
-    private ArrayList<Proposition> propositions;
+    private List<Proposition> propositions;
+*/
 }
+

@@ -23,7 +23,7 @@ public class AppelOffre {
     private LocalDate date_debut;
     @Column
     private LocalDate date_fin;
-    @OneToMany(mappedBy = "appelOffre")
-    private List<Materiel> materiels;
+    /*@OneToMany(mappedBy = "appelOffre")
+    private List<Materiel> materiels;*/
 
 }

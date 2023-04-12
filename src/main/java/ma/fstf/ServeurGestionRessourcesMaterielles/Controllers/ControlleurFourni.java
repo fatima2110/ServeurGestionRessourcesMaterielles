@@ -8,83 +8,63 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.FournisseurRepos
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Materiel_PropositionReposetory;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.MessageReposetory;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.PropositionRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Services.FournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import ma.fstf.ServeurGestionRessourcesMaterielles.ModelRepre.Matereil_Propo_Repres;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api")
+@CrossOrigin //(origins = "http://localhost:4200")
+@RequestMapping("/api/projet/Fournisseur")
 
 public class ControlleurFourni {
+
     @Autowired
-    FournisseurRepository FourRep;
-    @Autowired
-    PropositionRepository PropoRep;
-    @Autowired
-    MessageReposetory MsgRepo;
-    @Autowired
-            Materiel_PropositionReposetory Mat_PropRespo;
-    Fournisseur FourCnct=new Fournisseur();
+    FournisseurService ServicFour;
 
 
-
-
-    @PostMapping("/Log")
-    public String Authen(@RequestBody Fournisseur four){
-      Fournisseur FourCnct = FourRep.findByNom_societeAndPass();
-      if(FourCnct==null)
-          return "Non authentified";
-      return "authentified";
-    }
+    //CONNECTION && INSCRIPTION
     @PostMapping("/inscrip")
-    public String Inscrip(@RequestBody Fournisseur four){
-        FourRep.save(four);
-        return "Inscrip";
+    public String Inscription(@RequestBody Fournisseur four){
+          return  ServicFour.Inscrip(four);
+    }
+    @PostMapping("/log")
+    public String Login(@RequestBody Fournisseur four){
+        return ServicFour.Login(four);
     }
 
-    @PostMapping("/saveProp")
-    public String SavePropo(@RequestBody Proposition prop){
-        PropoRep.save(prop);
-        return "Save Proposition";
+    //PROPOSITION
+    @PostMapping("/ADDPropo")
+    public String ADDPROP(@RequestBody Proposition prop){
+        return ServicFour.ADDPROPO(prop);
+    }
+    @PutMapping("/UPDATEPROP")
+    public String UPDATEPROP(@RequestBody Proposition prop){
+        return ServicFour.ADDPROPO(prop);
+    }
+    @DeleteMapping("/DELETEProp/{id}")
+    public boolean DELETEPROP(@PathVariable(value = "id") Integer id){
+
+        ServicFour.DELETEProp(id);
+        return true;
     }
 
-    @GetMapping("/ListePropo")
-    public ArrayList<Proposition> ListePropo(@RequestBody Fournisseur four){
+    //LISTE PROPOSITION
+    @GetMapping("/ListePropo/{id}")
 
-        return  FourCnct.getPropositions();
-    }
-
-    @GetMapping("/ListeMat/{idProp}")
-    public ArrayList<Materiel_Proposition> ListeMatProp(@PathVariable(value = "idProp") Integer id){
-
-      return PropoRep.getById(id).getMateriels_propositions();
-    }
-
-    @PutMapping(path = "/update")
-
-    public String updateCustomer(@RequestBody Materiel_Proposition Mat_Propo)
+    public List<Proposition> ListePropo(@PathVariable(value = "id") Integer id)
     {
-        if(Mat_PropRespo.existsById(Mat_Propo.getId())) {
-            Mat_PropRespo.save(Mat_Propo);
-            return "updated";
-        }
-        return "Non";
+        return ServicFour.ListeProposion(id);
+
     }
 
-
-    @DeleteMapping(path = "/deleteMateriel/{id}")
-    public String deleteCustomer(@PathVariable(value = "id") int id)
-    {
-        if(Mat_PropRespo.existsById(id)) {
-            Mat_PropRespo.deleteById(id);
-            return "deleted";
-        }
-        return "Non";
-    }
+    //**************MATERIEL********
 
 
 
+
+    
 
 }
