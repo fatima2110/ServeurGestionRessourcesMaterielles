@@ -12,20 +12,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
-public class Proposition {
+public class Token {
     @Id
     @GeneratedValue
-    private Integer id;
-
-    @Column
+    public Integer id;
+    @Column(unique = true)
+    public String token;
     @Enumerated(EnumType.STRING)
-    private StatusPropo status;
+    public TokenType tokenType = TokenType.BEARER;
+    public boolean revoked;
+    public boolean expired;
     @ManyToOne
-    @JoinColumn(name = "fournisseur_id")
-    private Fournisseur fournisseur;
-
-
-
-
+    @JoinColumn(name = "user_id")
+    public User user;
 }

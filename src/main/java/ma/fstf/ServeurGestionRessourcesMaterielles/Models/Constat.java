@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -13,18 +14,22 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table
-public class Materiel_Proposition {
+public class Constat {
     @Id
     @GeneratedValue
     private Integer id;
     @Column
-    private String marque;
+    private LocalDate date_apparition;
     @Column
-    private double prix;
+    private String explication_panne;
+    @Column
+    private String frequence;
+    @Column
+    private String ordre;
+    @ManyToOne
+    @JoinColumn(name = "technicien_id")
+    private User technicien;
     @ManyToOne
     @JoinColumn(name = "materiel_id")
     private Materiel materiel;
-    @ManyToOne
-    @JoinColumn(name = "proposition_id")
-    private Proposition proposition;
 }
