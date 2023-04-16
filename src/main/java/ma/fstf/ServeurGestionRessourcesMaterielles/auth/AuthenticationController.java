@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -16,21 +17,21 @@ public class AuthenticationController {
   private final AuthenticationService service;
   private final LogoutService logoutService;
 
-  @CrossOrigin(origins="*")
+  //@CrossOrigin(origins="*")
   @PostMapping("/register")
   public ResponseEntity<AuthenticationResponse> register(
           @RequestBody RegisterRequest request
   ) {
     return ResponseEntity.ok(service.register(request));
   }
-  @CrossOrigin(origins="*")
+  //@CrossOrigin(origins="*")
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
           @RequestBody AuthenticationRequest request
   ) {
     return ResponseEntity.ok(service.authenticate(request));
   }
-  @CrossOrigin("*")
+  //@CrossOrigin("*")
   @GetMapping("/logout")
   public ResponseEntity<String> logout(HttpServletRequest request) {
     logoutService.logout(request,null,null);
