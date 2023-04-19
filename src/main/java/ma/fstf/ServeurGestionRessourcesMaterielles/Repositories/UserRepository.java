@@ -13,5 +13,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Query("select u.role from User u where u.login=:login")
     String findRoleByLogin(String login);
+    @Query("select u.id from User u where u.login=:login")
+    Integer findIdByLogin(String login);
     User findUserById(int id);
 }

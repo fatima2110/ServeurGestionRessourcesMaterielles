@@ -28,7 +28,7 @@ public class AuthenticationService {
         .nom(request.getNom())
         .prenom(request.getPrenom())
         .pass(passwordEncoder.encode(request.getPassword()))
-        .role(Role.FOURNISSEUR)
+        .role(Role.TECHNICIEN)
         .build();
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
@@ -47,12 +47,15 @@ public class AuthenticationService {
     );
     var user = repository.findByLogin(request.getLogin()).orElseThrow();
     var role = repository.findRoleByLogin(request.getLogin());
+    var id = repository.findIdByLogin(request.getLogin());
+    System.out.println("id----------------------------------"+id);
     var jwtToken = jwtService.generateToken(user);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
                                   .token(jwtToken)
                                   .role(role)
+                                  .id(id)
                                   .build();
   }
 

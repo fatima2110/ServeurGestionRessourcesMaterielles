@@ -1,6 +1,9 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
 public enum MaterielState {
-    EnPANNE,
-    EnSERVICE
+    REPAREE,
+    EnReparation,
+    DoitChange,
+    EnPanne,
+    EnService
 }

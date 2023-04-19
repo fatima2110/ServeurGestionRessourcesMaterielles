@@ -24,11 +24,13 @@ public class Materiel {
     @Column
     private String marque;
     @Column(unique = true)
-    private String code_barre;
+    private String codeBarre;
     @Column
     private double prix;
     @Column(columnDefinition = "boolean default false")
     private boolean panne;
+    @Enumerated(EnumType.STRING)
+    private MaterielState materielState;
     @Column
     private LocalDate date_livraison;
     @Column
