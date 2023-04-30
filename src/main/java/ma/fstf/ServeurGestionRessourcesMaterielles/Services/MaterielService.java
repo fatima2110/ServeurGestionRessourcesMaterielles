@@ -6,10 +6,10 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Imprimente;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ordinateur;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.EnseignantRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.ImprimanteRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.MatereilRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.OrdinateurRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.EnseignantRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.ImprimanteRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.MatereilRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.OrdinateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

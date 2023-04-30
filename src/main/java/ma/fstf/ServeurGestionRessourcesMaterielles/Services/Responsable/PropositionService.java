@@ -1,8 +1,9 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Services;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

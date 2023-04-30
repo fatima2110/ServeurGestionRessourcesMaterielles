@@ -1,16 +1,10 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Controllers;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Controllers.Responsable;
 
 import lombok.AllArgsConstructor;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Fournisseur;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Imprimente;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Message;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ordinateur;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Services.MaterielService;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Services.PropositionService;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable.PropositionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
