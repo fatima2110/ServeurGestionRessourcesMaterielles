@@ -89,4 +89,22 @@ public class PanneService {
             }
         }
     }
+
+    public List<ConstatDTO> getConstats(){
+        List<ConstatDTO> constatDTOS = new ArrayList<>();
+        List<Constat> constats = constatRepository.findAll();
+        if(constats != null){
+            for(int i=0;i< constats.size();i++){
+                ConstatDTO constatDTO = ConstatDTO.builder()
+                        .code_barre(constats.get(i).getPanne().getMateriel().getCodeBarre())
+                        .date_apparition(constats.get(i).getDate_apparition())
+                        .explication_panne(constats.get(i).getExplication_panne())
+                        .frequence(constats.get(i).getFrequence())
+                        .ordre(constats.get(i).getOrdre())
+                        .build();
+                constatDTOS.add(constatDTO);
+            }
+        }
+        return constatDTOS;
+    }
 }

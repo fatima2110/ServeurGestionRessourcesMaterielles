@@ -13,9 +13,11 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Role;
 public class RegisterRequest {
 
   private String login;
+  private String departement;
   private String password;
   private Role role;
   private String nom;
   private String prenom;
   private String telephone;
+
 }

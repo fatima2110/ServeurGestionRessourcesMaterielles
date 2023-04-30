@@ -31,4 +31,9 @@ public class PanneController {
     public void ajouterConstat(@RequestBody ConstatDTO constatDTO){
         panneService.ajouterConstat(constatDTO);
     }
+
+    @GetMapping("/getConstats")
+    public ResponseEntity<List<ConstatDTO>> getConstats(){
+        return new ResponseEntity<>(panneService.getConstats(), HttpStatus.OK);
+    }
 }

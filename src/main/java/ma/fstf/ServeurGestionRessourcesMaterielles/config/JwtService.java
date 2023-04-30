@@ -63,7 +63,7 @@ public class JwtService {
         .parserBuilder()
         .setSigningKey(getSignInKey())
         .build()
-        .parseClaimsJws(token)
+        .parseClaimsJws(token)// declanche l'exception ExpiredJwtException
         .getBody();
   }
 

@@ -1,6 +1,7 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Token;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,4 +17,7 @@ public interface TokenRepository extends JpaRepository<Token,Integer> {
     List<Token> findAllValidTokenByUser(Integer id);
 
     Optional<Token> findByToken(String token);
+
+    void deleteTokenByUser(User user);
+    Token findTokenByToken(String token);
 }

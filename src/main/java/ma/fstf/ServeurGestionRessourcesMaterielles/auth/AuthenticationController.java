@@ -1,6 +1,7 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.auth;
 
 import lombok.RequiredArgsConstructor;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.DepartementDto;
 import ma.fstf.ServeurGestionRessourcesMaterielles.config.LogoutService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,11 @@ public class AuthenticationController {
   public ResponseEntity<String> logout(HttpServletRequest request) {
     logoutService.logout(request,null,null);
     return new ResponseEntity<>("déconnexion réussie", HttpStatus.OK);
+  }
+  @GetMapping("/getDepartement/{id}")
+  public DepartementDto getDepartement(@PathVariable String id) {
+    return service.getDepartement(Integer.parseInt(id));
+
   }
 
 
