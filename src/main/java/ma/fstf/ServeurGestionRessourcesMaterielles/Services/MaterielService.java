@@ -69,17 +69,17 @@ public class MaterielService {
             Materiel mat = malist.get(i);
             Ordinateur ordinateur= getordinateur(mat.getId());
             if (ordinateur!=null){
-            OrdinateurDto ordinateurDto = OrdinateurDto.builder()
-                    .id(mat.getId())
-                    .cpu(ordinateur.getCpu())
-                    .ram(ordinateur.getRam())
-                    .ecran(ordinateur.getEcran())
-                    .disque(ordinateur.getDisque())
+                OrdinateurDto ordinateurDto = OrdinateurDto.builder()
+                        .id(mat.getId())
+                        .cpu(ordinateur.getCpu())
+                        .ram(ordinateur.getRam())
+                        .ecran(ordinateur.getEcran())
+                        .disque(ordinateur.getDisque())
 
-                    .build();
-            list.add(ordinateurDto);}
+                        .build();
+                list.add(ordinateurDto);}
         }
-return  list;
+        return  list;
     }
 
     public List<ImprimanteDto> getBesoinsImprimentesOfEns(int id) throws Exception {
@@ -161,27 +161,27 @@ return  list;
         List<Ensiegnant> ens=enseignantRepository.findEnsiegnantByDepartementEquals(departement);
         for (int i =0;i<ens.size();i++){
             System.out.println("enseignat"+ens.get(i).getNom());
-        List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens.get(i));
-        for (int j =0;j<matList.size();j++){
+            List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens.get(i));
+            for (int j =0;j<matList.size();j++){
                 Materiel mat = matList.get(j);
                 if(mat!=null){
-           Ordinateur ordinateur=ordinateurRepository.findOrdinateurById(mat.getId());
-           if (ordinateur!=null){
-               User user= userRepository.findUserById(ens.get(i).getId());
-               if(user!=null){
-                BesoinChefOrdinateurDto materielOrdinateurDTO= BesoinChefOrdinateurDto.builder()
-                        .id(mat.getId())
-                        .nom(user.getNom())
-                        .prenom(user.getPrenom())
-                        .cpu(ordinateur.getCpu())
-                        .ram(ordinateur.getRam())
-                        .ecran(ordinateur.getEcran())
-                        .disque(ordinateur.getDisque())
+                    Ordinateur ordinateur=ordinateurRepository.findOrdinateurById(mat.getId());
+                    if (ordinateur!=null){
+                        User user= userRepository.findUserById(ens.get(i).getId());
+                        if(user!=null){
+                            BesoinChefOrdinateurDto materielOrdinateurDTO= BesoinChefOrdinateurDto.builder()
+                                    .id(mat.getId())
+                                    .nom(user.getNom())
+                                    .prenom(user.getPrenom())
+                                    .cpu(ordinateur.getCpu())
+                                    .ram(ordinateur.getRam())
+                                    .ecran(ordinateur.getEcran())
+                                    .disque(ordinateur.getDisque())
 
-                        .build();
-              list.add(materielOrdinateurDTO);
-          }}
-        }}
+                                    .build();
+                            list.add(materielOrdinateurDTO);
+                        }}
+                }}
         }
         return list;
     }

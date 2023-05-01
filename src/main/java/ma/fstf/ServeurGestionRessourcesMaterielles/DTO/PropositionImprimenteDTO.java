@@ -5,19 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+import javax.persistence.Column;
 import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MaterielDto {
-    private int id;
-    private String enseignant;
+public class PropositionImprimenteDTO {
+
     private String marque;
-    private String code_barre;
-    private LocalDate date_affectation;
-    private int duree_garentie;
-    private boolean enPanne;
-    private LocalDate date_livraison;
+    private String resolution;
+    private double prix;
+    private String vitesse;
+    private Integer qte;
 }

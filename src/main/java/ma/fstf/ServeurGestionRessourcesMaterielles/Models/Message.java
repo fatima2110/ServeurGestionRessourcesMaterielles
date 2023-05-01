@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @Builder
@@ -26,4 +25,7 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "recepteur_id")
     private User recepteur;
+    @ManyToOne
+    @JoinColumn(name = "fournisseur_id")
+    private Fournisseur fournisseur;
 }

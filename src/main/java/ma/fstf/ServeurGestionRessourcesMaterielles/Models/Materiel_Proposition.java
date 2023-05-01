@@ -20,7 +20,7 @@ public class Materiel_Proposition {
     @Column
     private String marque;
     @Column
-    private double prix;
+    private Double prix;
     @ManyToOne
     @JoinColumn(name = "materiel_id")
     private Materiel materiel;

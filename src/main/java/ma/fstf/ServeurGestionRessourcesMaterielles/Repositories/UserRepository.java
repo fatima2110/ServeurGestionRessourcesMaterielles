@@ -20,5 +20,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT u FROM User u LEFT JOIN Ensiegnant e ON u.id = e.id WHERE e.id IS NULL")
     List<User> findNonEnseignants();
-
 }

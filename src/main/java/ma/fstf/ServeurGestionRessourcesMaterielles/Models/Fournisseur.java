@@ -5,9 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
 
-import java.util.List;
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -23,6 +23,9 @@ public class Fournisseur {
     private String nom_societe;
     @Column
     private String adresse;
+    @Column
+    @Value("${listeNoir:false}")
+    private  boolean listeNoir;
     @Column
     private String email;
     @Column
