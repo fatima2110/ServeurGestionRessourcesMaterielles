@@ -6,6 +6,7 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,8 @@ public class MaterielService {
     private PanneRepository panneRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
     public void saveOrdinateur(Ordinateur ordinateur,int id){
         Ensiegnant ens=enseignantRepository.findById(id).get();
         ordinateur.setEnsiegnant(ens);
@@ -52,7 +55,7 @@ public class MaterielService {
                         .code_barre(mat.getCodeBarre())
                         .enseignant(ens.getNom())
                         .enPanne(mat.isPanne())
-
+                        .materielState(mat.getMaterielState())
                         .build();
                 list.add(materielDto);
             }
@@ -126,23 +129,26 @@ public class MaterielService {
     public void enPanne(int id){
         Materiel mat=matereilRepository.findMaterielById(id);
         Panne panne = Panne.builder().materiel(mat).build();
-        if (mat.isPanne() != true) {
-            mat.setPanne(true);
-            mat.setMaterielState(MaterielState.EnPanne);
-            matereilRepository.save(mat);
-            panneRepository.save(panne);
-            System.out.println(mat.isPanne());
-            //matereilRepository.save(mat.setPanne(true));
-        }
+        mat.setPanne(true);
+        mat.setMaterielState(MaterielState.EnPanne);
+        matereilRepository.save(mat);
+        panneRepository.save(panne);
     }
-    public void enService(int id){
-        Materiel mat=matereilRepository.findMaterielById(id);
-        if (mat.isPanne() != false) {
-            mat.setPanne(false);
-            mat.setMaterielState(MaterielState.EnService);
-            System.out.println(mat.isPanne());
+    public void materielstate(String id, String state, HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        String jwt = token.substring(7);
+        User user = tokenRepository.findTokenByToken(jwt).getUser();
+        Materiel mat=matereilRepository.findMaterielByCodeBarre(id);
+        if(mat != null){
+            MaterielState materielState = MaterielState.valueOf(state);
+            if(state.equals("REPAREE")){
+                Panne panne = panneRepository.findPanneByMaterielAndTreatedIsFalse(mat);
+                panne.setTreated(true);
+                panne.setTechnicien(user);
+                panneRepository.save(panne);
+            }
+            mat.setMaterielState(materielState);
             matereilRepository.save(mat);
-            //matereilRepository.save(mat.setPanne(true));
         }
     }
     public void editOrdinateur(Ordinateur newOrdinateur){

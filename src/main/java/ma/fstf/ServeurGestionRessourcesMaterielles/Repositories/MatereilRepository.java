@@ -13,6 +13,7 @@ import java.util.List;
 public interface MatereilRepository extends JpaRepository<Materiel,Integer> {
     List<Materiel> findMaterielByEnsiegnantAndAppelOffreNotNull(Ensiegnant ens);
     Materiel findMaterielById(int id);
+    Materiel findMaterielByCodeBarre(String s);
     List<Materiel> findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(Ensiegnant ens);
     Materiel findMaterielByCodeBarreAndMaterielState(String code_barre, MaterielState state);
     List<Materiel> findMaterielByEnsiegnant(Ensiegnant ensiegnant);

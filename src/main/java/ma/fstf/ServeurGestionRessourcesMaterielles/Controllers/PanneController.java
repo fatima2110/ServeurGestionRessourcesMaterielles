@@ -28,8 +28,14 @@ public class PanneController {
     }
 
     @PostMapping("/ajouterConstat")
-    public void ajouterConstat(@RequestBody ConstatDTO constatDTO){
-        panneService.ajouterConstat(constatDTO);
+    public ResponseEntity<?> ajouterConstat(@RequestBody ConstatDTO constatDTO){
+        try {
+            panneService.ajouterConstat(constatDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (RuntimeException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @GetMapping("/getConstats")

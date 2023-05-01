@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -37,14 +38,11 @@ public class MaterielController {
     @CrossOrigin("*")
     @GetMapping("/enPanne/{id}")
     public void enPanne(@PathVariable int id){
-        System.out.println(id);
         materielService.enPanne(id);
     }
-    @CrossOrigin("*")
-    @GetMapping("/enService/{id}")
-    public void enService(@PathVariable int id){
-        System.out.println(id);
-        materielService.enService(id);
+    @GetMapping("/materielstate/{id}/{state}")
+    public void materielstate(@PathVariable String id, @PathVariable String state, HttpServletRequest request){
+        materielService.materielstate(id, state, request);
     }
     @CrossOrigin("*")
     @GetMapping("/getBesoinsOrdinateurs/{id}")

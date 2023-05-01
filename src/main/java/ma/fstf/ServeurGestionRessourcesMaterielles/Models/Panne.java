@@ -17,6 +17,8 @@ public class Panne {
     @Id
     @GeneratedValue
     private Integer id;
+    @Column(columnDefinition = "boolean default false")
+    private boolean treated;
     @ManyToOne
     @JoinColumn(name = "technicien_id")
     private User technicien;

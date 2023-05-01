@@ -132,16 +132,18 @@ public class UserService {
                 .prenom(user.getPrenom())
                 .nom(user.getNom())
                 .build();
-        Ensiegnant ensiegnant = enseignantRepository.findById(id).get();
-        if(ensiegnant != null){
-            userDTO.setDepartement(ensiegnant.getDepartement());
+        if(userDTO.getRole().name().equals("ENSEIGNANT") || userDTO.getRole().name().equals("CHEF_DEPARTEMENT")){
+            Ensiegnant ensiegnant = enseignantRepository.findById(id).get();
+            if(ensiegnant != null){
+                userDTO.setDepartement(ensiegnant.getDepartement());
+            }
         }
         return userDTO;
     }
 
     private void setAccount(UserDTO userDTO, User user) {
         user.setNom(userDTO.getNom());
-        user.setPrenom(user.getPrenom());
+        user.setPrenom(userDTO.getPrenom());
         user.setRole(userDTO.getRole());
         user.setTelephone(userDTO.getTelephone());
         user.setLogin(userDTO.getLogin());

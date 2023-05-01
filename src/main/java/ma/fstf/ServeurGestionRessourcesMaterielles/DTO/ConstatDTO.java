@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class ConstatDTO {
+    private Integer id_constat;
     private Integer id_technicien;
     private String code_barre;
     private LocalDate date_apparition;

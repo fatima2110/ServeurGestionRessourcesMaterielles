@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.MaterielState;
 
 
 import java.time.LocalDate;
@@ -19,5 +20,6 @@ public class MaterielDto {
     private LocalDate date_affectation;
     private int duree_garentie;
     private boolean enPanne;
+    private MaterielState materielState;
     private LocalDate date_livraison;
 }
