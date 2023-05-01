@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ImprimanteRepository extends JpaRepository<Imprimente,Integer> {
+public interface ImprimanteRepositoryResponsable extends JpaRepository<Imprimente,Integer> {
 
 //    @Query(nativeQuery = true , value =
 //            "SELECT i.resolution,i.vitesse FROM Imprimente i INNER JOIN Ensiegnant e ON i.ensiegnant_id = e.id " +

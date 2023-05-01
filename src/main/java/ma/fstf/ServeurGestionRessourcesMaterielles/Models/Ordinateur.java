@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

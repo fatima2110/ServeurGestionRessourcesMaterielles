@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MatereilRepository extends JpaRepository<Materiel,Integer> {
+public interface MatereilRepositoryResponsable extends JpaRepository<Materiel,Integer> {
     List<Materiel> findMaterielByEnsiegnant(Ensiegnant ens);
 //    @Query(nativeQuery = true , value =
 //            "SELECT m.id,m.marque FROM Materiel m INNER JOIN Ensiegnant e ON m.ensiegnant_id = e.id WHERE e.departement = :departement AND m.appel_offre_id IS NULL"

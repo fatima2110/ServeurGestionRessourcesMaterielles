@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrdinateurRepository extends JpaRepository<Ordinateur,Integer> {
+public interface OrdinateurRepositoryResponsable extends JpaRepository<Ordinateur,Integer> {
 
 
 //@Query(nativeQuery = true , value =

@@ -16,18 +16,18 @@ import java.util.List;
 @Service
 public class ResponsableService {
     @Autowired
-    private ImprimanteRepository imRepo;
+    private ImprimanteRepositoryResponsable imRepo;
     @Autowired
-    private EnseignantRepository ensiegRepo;
+    private EnseignantRepositoryResponsable ensiegRepo;
 
     @Autowired
-    private  OrdinateurRepository ordRepo;
+    private  OrdinateurRepositoryResponsable ordRepo;
 
     @Autowired
     AppleOffreRepo appelRepo;
 
    @Autowired
-    private MatereilRepository matRepo;
+    private MatereilRepositoryResponsable matRepo;
     @Autowired
     FournisseurRepository fournRepo;
     @Autowired
@@ -79,7 +79,7 @@ public class ResponsableService {
             MaterielImprimenteDTO maDto = MaterielImprimenteDTO.builder()
                     .id(im.getId())
 //                    .Appleoffreid(ap.getId())
-                    .code_barre(im.getCode_barre())
+                    .code_barre(im.getCodeBarre())
 //                    .datedebut(ap.getDate_debut())
 //                    .dateFin(ap.getDate_fin())
                     .prix(im.getPrix())
@@ -110,7 +110,7 @@ public class ResponsableService {
             MaterielOrdinateurDTO maDto = MaterielOrdinateurDTO.builder()
                     .id(im.getId())
 
-                    .code_barre(im.getCode_barre())
+                    .code_barre(im.getCodeBarre())
 
                     .prix(im.getPrix())
 
@@ -252,7 +252,7 @@ public class ResponsableService {
             System.out.println("Im in boucle" + i);
             System.out.println("id******" + list.get(i).getId());
             Materiel m = matRepo.findMaterielByid(list.get(i).getId());
-            m.setCode_barre(list.get(i).getCode_barre());
+            m.setCodeBarre(list.get(i).getCode_barre());
 
             LocalDate date = list.get(i).getDatelivraison();
             DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
@@ -276,7 +276,7 @@ public class ResponsableService {
             System.out.println("Im in boucle" + i);
             System.out.println("id******" + list.get(i).getId());
             Materiel m = matRepo.findMaterielByid(list.get(i).getId());
-            m.setCode_barre(list.get(i).getCode_barre());
+            m.setCodeBarre(list.get(i).getCode_barre());
 
             LocalDate date = list.get(i).getDatelivraison();
             DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
@@ -308,7 +308,7 @@ public class ResponsableService {
             MaterielImprimenteDTO maDto = MaterielImprimenteDTO.builder()
                     .prix(matp.getPrix())
                     .marque(matp.getMarque())
-                    .code_barre(m.getCode_barre())
+                    .code_barre(m.getCodeBarre())
                     .dureegarantie(m.getDuree_garentie())
                     .datelivraison(m.getDate_livraison())
                     .id(im.getId())
@@ -337,7 +337,7 @@ public class ResponsableService {
             MaterielOrdinateurDTO maDto = MaterielOrdinateurDTO.builder()
                     .prix(matp.getPrix())
                     .marque(matp.getMarque())
-                    .code_barre(m.getCode_barre())
+                    .code_barre(m.getCodeBarre())
                     .dureegarantie(m.getDuree_garentie())
                     .datelivraison(m.getDate_livraison())
                     .id(im.getId())

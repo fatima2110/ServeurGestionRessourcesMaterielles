@@ -36,13 +36,8 @@ public class SecurityConfiguration {
             .requestMatchers(requestMatcher)
             .permitAll()
             .anyRequest()
-<<<<<<< HEAD
             .authenticated()
             //.permitAll()
-=======
-            //.authenticated()
-            .permitAll()
->>>>>>> ba5a08b4626b2bd0f571799bf0501ea11f5e5891
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -50,18 +45,10 @@ public class SecurityConfiguration {
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
             .logout()
-<<<<<<< HEAD
             .logoutUrl("/api/auth/logout1")
-=======
-            .logoutUrl("/api/auth/logout")
->>>>>>> ba5a08b4626b2bd0f571799bf0501ea11f5e5891
             .addLogoutHandler(logoutHandler)
             .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
     ;
     return http.build();
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> ba5a08b4626b2bd0f571799bf0501ea11f5e5891

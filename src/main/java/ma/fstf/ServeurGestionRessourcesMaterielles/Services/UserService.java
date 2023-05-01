@@ -152,7 +152,7 @@ public class UserService {
     public void editProfile(Integer id, UserDTO userDTO) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
         user.setNom(userDTO.getNom());
-        user.setPrenom(user.getPrenom());
+        user.setPrenom(userDTO.getPrenom());
         user.setTelephone(userDTO.getTelephone());
         user.setLogin(userDTO.getLogin());
         System.err.println(userDTO.getPhoto());

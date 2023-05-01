@@ -1,5 +1,6 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
 
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Role;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT u FROM User u LEFT JOIN Ensiegnant e ON u.id = e.id WHERE e.id IS NULL")
     List<User> findNonEnseignants();
+
+    User findUserByRoleEquals(Role role);
 }

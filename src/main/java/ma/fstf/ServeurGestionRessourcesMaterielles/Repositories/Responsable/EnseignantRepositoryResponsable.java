@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EnseignantRepository extends JpaRepository<Ensiegnant, Integer> {
+public interface EnseignantRepositoryResponsable extends JpaRepository<Ensiegnant, Integer> {
 
 //    @Query(nativeQuery = true , value =
 //            "SELECT e.* FROM Ensiegnant e INNER JOIN Materiel m ON m.ensiegnant_id = e.id"

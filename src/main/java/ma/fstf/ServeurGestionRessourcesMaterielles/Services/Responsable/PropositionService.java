@@ -4,6 +4,8 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.EnseignantRepositoryResponsable;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.OrdinateurRepositoryResponsable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +22,11 @@ public class PropositionService {
 @Autowired
 private MaterielPropositionRepository materielPropositionRepository;
     @Autowired
-    private OrdinateurRepository ordinateurRepository;
+    private OrdinateurRepositoryResponsable ordinateurRepository;
     @Autowired
     private MessageRepository messageRepository;
     @Autowired
-    private ImprimanteRepository imprimanteRepository;
+    private ImprimanteRepositoryResponsable imprimanteRepository;
     @Autowired
     private EnseignantRepository enseignantRepository;
 
