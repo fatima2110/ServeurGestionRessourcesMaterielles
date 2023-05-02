@@ -1,4 +1,4 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Fournisseur;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Token;
 import org.springframework.data.jpa.repository.JpaRepository;

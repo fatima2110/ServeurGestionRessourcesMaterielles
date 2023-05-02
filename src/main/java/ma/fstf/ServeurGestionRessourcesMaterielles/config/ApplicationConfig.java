@@ -1,6 +1,6 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.config;
 
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.UserRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Fournisseur.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

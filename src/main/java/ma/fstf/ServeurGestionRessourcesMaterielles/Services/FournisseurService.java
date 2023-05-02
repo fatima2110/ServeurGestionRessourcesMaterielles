@@ -1,13 +1,14 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Services;
 
-import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur.FournisseurCnx;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur.ImprimenteDto;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur.OrdinateurDto;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Fournisseur.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service

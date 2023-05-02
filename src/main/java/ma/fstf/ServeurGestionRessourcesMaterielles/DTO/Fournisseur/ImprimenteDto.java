@@ -1,4 +1,4 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.DTO;
+package ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrdinateurDto {
+public class ImprimenteDto {
     private int id;
-    private String cpu ;
-    private String ram;
-    private String disque;
-    private String ecran ;
+    private String resolution;
+    private String vitesse;
     private String marque;
     private double prix;
     private int id_Prop;

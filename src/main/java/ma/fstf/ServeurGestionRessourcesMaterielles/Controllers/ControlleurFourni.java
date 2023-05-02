@@ -1,16 +1,14 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Controllers;
 
 
-import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur.FournisseurCnx;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur.ImprimenteDto;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur.OrdinateurDto;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.FournisseurRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Materiel_PropositionReposetory;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.MessageReposetory;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.PropositionRepository;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Services.FournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController

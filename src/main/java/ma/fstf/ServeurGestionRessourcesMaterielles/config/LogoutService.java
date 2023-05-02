@@ -1,6 +1,6 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.config;
 
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.TokenRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Fournisseur.TokenRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

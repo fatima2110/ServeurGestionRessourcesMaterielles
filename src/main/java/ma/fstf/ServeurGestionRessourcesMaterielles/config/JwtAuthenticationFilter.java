@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.TokenRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Fournisseur.TokenRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

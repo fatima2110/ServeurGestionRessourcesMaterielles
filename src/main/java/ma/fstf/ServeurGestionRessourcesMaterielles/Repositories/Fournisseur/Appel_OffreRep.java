@@ -1,4 +1,4 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Fournisseur;
 
 
 

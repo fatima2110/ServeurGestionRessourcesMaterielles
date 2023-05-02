@@ -1,4 +1,4 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.DTO;
+package ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
