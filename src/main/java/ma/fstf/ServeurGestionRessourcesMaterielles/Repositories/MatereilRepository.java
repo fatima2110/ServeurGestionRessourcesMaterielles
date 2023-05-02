@@ -1,5 +1,6 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
 
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.AppelOffre;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.MaterielState;
@@ -17,5 +18,7 @@ public interface MatereilRepository extends JpaRepository<Materiel,Integer> {
     List<Materiel> findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(Ensiegnant ens);
     Materiel findMaterielByCodeBarreAndMaterielState(String code_barre, MaterielState state);
     List<Materiel> findMaterielByEnsiegnant(Ensiegnant ensiegnant);
+
+    List<Materiel> findMaterielByAppelOffre(AppelOffre app);
 
 }

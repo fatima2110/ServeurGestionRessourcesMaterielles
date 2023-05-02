@@ -20,4 +20,11 @@ public interface FournisseurRepository extends JpaRepository<Fournisseur,Integer
             "select f.* from fournisseur f,materiel_proposition m,proposition p " +
             "where m.materiel_id= :id and m.proposition_id=p.id and f.id=p.fournisseur_id")
     Fournisseur getFournisseur(@Param("id") Integer id);
+
+    default Fournisseur findByNom_societeAndPass(Fournisseur fou) {
+        return null;
+    }
+
+    @Query("select f from Fournisseur f where f.id = :id")
+    Fournisseur findByid(@Param("id") Integer id);
 }

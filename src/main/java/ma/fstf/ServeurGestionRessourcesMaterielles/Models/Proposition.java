@@ -1,5 +1,6 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +23,7 @@ public class Proposition {
     private StatusPropo status;
     @ManyToOne
     @JoinColumn(name = "fournisseur_id")
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private Fournisseur fournisseur;
 }
+

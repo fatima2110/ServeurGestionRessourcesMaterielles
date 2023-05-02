@@ -24,5 +24,6 @@ public class Token {
     public boolean expired;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    //@JsonProperty(access = JsonProperty.Access.READ_WRITE)
     public User user;
 }

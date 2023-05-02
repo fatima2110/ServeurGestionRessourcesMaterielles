@@ -5,7 +5,10 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.EnseignantRepositoryResponsable;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.FournisseurRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.MessageRepository;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.OrdinateurRepositoryResponsable;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.PropositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

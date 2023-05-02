@@ -13,5 +13,7 @@ public interface EnseignantRepository extends JpaRepository<Ensiegnant, Integer>
 
     List<Ensiegnant> findEnsiegnantByDepartementEquals(String deparetemt);
 
+    Ensiegnant getById(Integer id);
+
 
 }
