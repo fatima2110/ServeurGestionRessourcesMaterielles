@@ -38,18 +38,8 @@ public class User implements UserDetails{
     private Role role;
     @Column
     private String telephone;
-    /*@OneToMany
-    @JoinColumn(name = "technicien_id")
-    private List<Constat> constats;*/
-   /* @OneToMany
-    @JoinColumn(name = "emetteur_id")
-    private List<Message> messages_envoyes;*/
-  /*  @OneToMany
-    @JoinColumn(name = "recepteur_id")
-    private List<Message> messages_recus;*/
-
-    @OneToMany(mappedBy = "user")
-    private List<Token> tokens;
+//    @OneToMany(mappedBy = "user")
+//    private List<Token> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

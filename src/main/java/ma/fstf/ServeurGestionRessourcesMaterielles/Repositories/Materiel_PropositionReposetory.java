@@ -15,6 +15,6 @@ public interface Materiel_PropositionReposetory extends JpaRepository<Materiel_P
 
    Materiel_Proposition save(Materiel_Proposition MatProp);
 
-
-
+   //@Override
+   //void deleteByMaterielAndAndMarqueAndPrix();
 }

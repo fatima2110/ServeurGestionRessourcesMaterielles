@@ -15,9 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table
 public class Imprimente extends Materiel{
     @Column
-    private String marque;
-    @Column
     private String resolution;
     @Column
-    private double vitesse;
+    private String vitesse;
 }

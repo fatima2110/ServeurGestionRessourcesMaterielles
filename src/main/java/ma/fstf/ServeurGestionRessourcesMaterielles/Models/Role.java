@@ -2,5 +2,9 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.Models;
 
 public enum Role {
     USER,
-    ADMIN
+    RESPONSABLE,
+    ENSEIGNANT,
+    CHEF_DEPARTEMENT,
+    FOURNISSEUR,
+    TECHNICIEN
 }
