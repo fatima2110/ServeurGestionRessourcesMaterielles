@@ -20,4 +20,8 @@ List<Ensiegnant> findEnsiegnantByDepartementEquals(String departement);
 @Query(nativeQuery = true,value="select ens.departement,user.* from ensiegnant ens,user user, materiel m where user.id=ens.id and ens.id=m.ensiegnant_id and m.id= :id ")
 Ensiegnant getEnsiegnant(@Param("id") Integer id);
 
+
+
+
+
 }
