@@ -43,6 +43,6 @@ public class Materiel {
     private AppelOffre appelOffre;
     @ManyToOne
     @JoinColumn(name = "ensiegnant_id")
-    @JsonIgnore
+    //@JsonIgnore
     private Ensiegnant ensiegnant;
 }

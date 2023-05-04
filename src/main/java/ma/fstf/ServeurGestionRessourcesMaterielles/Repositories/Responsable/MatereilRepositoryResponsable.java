@@ -26,4 +26,6 @@ public interface MatereilRepositoryResponsable extends JpaRepository<Materiel,In
     void update(@Param("id") Integer id, @Param("idoffre") Integer idoffre);
     Materiel findMaterielByid(Integer id);
 
+
+
 }

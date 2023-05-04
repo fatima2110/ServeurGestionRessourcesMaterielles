@@ -2,7 +2,12 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.Controllers.Responsable;
 
 import lombok.AllArgsConstructor;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Affectation;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Fournisseur;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.AffectationRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable.AffectationService;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable.PropositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +22,8 @@ import java.util.List;
 public class ResponsableController {
     @Autowired
    private PropositionService propositionService;
+    @Autowired
+    private AffectationService affectationService;
 
     @GetMapping("/getFournisseurs")
     public List<Fournisseur> getFournisseurs() throws Exception {
@@ -66,6 +73,31 @@ public class ResponsableController {
     @PostMapping("/notifrejet")
     public void envoyerNotifRejet(@RequestBody MessageDTO msg) throws Exception {
         propositionService.envoyerMotif(msg);
+    }
+    @GetMapping("/getAllAffectations")
+    public List<Affectation> getAffectedRessources() throws Exception {
+        return affectationService.getAffectedRessources();
+    }
+    @GetMapping("/getAllNoAffectations")
+    public List<Materiel> getNoAffectedRessources() throws Exception {
+        return affectationService.getNonAffectedRessources();
+    }
+    @DeleteMapping ("/retirerRessourceAffecte/{id}")
+    public void retirerRessourceAffecte(@PathVariable Integer id) throws Exception {
+         affectationService.retirerRessourceAffecte(id);
+    }
+
+    @DeleteMapping("/retirerRessourceNoAffecte/{id}")
+    public void retirerRessourceNoAffecte(@PathVariable Integer id) throws Exception {
+        affectationService.retirerRessourceNonAffecte(id);
+    }
+    @GetMapping("/getEnsOfDepart/{departement}")
+    public List<Ensiegnant> getEnsOfDepart(@PathVariable String departement) throws Exception {
+        return affectationService.getEnsOfdepartement(departement);
+    }
+    @PostMapping("/addAffectaion")
+    public void addAffectaion(@RequestBody AffectationDto affectation) throws Exception {
+        affectationService.addAffectation(affectation);
     }
 
 }

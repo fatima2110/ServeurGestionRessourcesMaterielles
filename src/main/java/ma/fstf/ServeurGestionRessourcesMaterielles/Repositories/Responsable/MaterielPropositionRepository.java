@@ -20,5 +20,5 @@ public interface MaterielPropositionRepository extends JpaRepository<Materiel_Pr
     Materiel_Proposition getMaterialProposition(@Param("id") Integer id);
     //    Materiel findMaterielByid(Integer id);
     Materiel_Proposition findMateriel_PropositionByMateriel(Materiel m);
-
+Materiel_Proposition findMateriel_PropositionByMaterielId(Integer id);
 }

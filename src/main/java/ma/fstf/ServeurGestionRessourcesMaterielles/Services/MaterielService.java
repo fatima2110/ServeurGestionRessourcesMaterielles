@@ -3,6 +3,7 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.Services;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.AffectationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class MaterielService {
+    @Autowired
+    private AffectationRepository affectationRepository;
     @Autowired
     private ConstatRepository constatRepository;
     @Autowired
@@ -46,9 +49,10 @@ public class MaterielService {
         List<MaterielDto> list = new ArrayList<>();
         Ensiegnant ens = getEnseignant(id);
         if (ens != null){
-            List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNotNull(ens);
-            for (int i =0;i<matList.size();i++){
-                Materiel mat = matList.get(i);
+            List<Affectation> affectations = affectationRepository.findAffectationByEnsiegnant(ens);
+            //List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNotNull(ens);
+            for (int i =0;i<affectations.size();i++){
+                Materiel mat = affectations.get(i).getMateriel();
                 MaterielDto materielDto = MaterielDto.builder()
                         .id(mat.getId())
                         .marque(mat.getMarque())

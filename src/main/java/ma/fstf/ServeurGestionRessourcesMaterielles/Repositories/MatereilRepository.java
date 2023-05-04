@@ -20,5 +20,6 @@ public interface MatereilRepository extends JpaRepository<Materiel,Integer> {
     List<Materiel> findMaterielByEnsiegnant(Ensiegnant ensiegnant);
 
     List<Materiel> findMaterielByAppelOffre(AppelOffre app);
+    List<Materiel> findAllByCodeBarreIsNotNull();
 
 }
