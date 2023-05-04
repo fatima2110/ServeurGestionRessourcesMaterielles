@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PanneOrdinateurDTO {
+    private Integer id_mat;
     private String enseignant;
     private String code_barre;
     private String marque;

@@ -41,7 +41,8 @@ public class MaterielController {
         materielService.enPanne(id);
     }
     @GetMapping("/materielstate/{id}/{state}")
-    public void materielstate(@PathVariable String id, @PathVariable String state, HttpServletRequest request){
+    public void materielstate(@PathVariable Integer id, @PathVariable String state, HttpServletRequest request){
+        System.err.println(id +" "+" "+state);
         materielService.materielstate(id, state, request);
     }
     @CrossOrigin("*")

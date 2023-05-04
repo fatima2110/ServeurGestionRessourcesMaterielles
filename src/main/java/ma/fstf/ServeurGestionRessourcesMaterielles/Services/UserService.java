@@ -161,7 +161,6 @@ public class UserService {
     public void changePassword(PassWordDTO passWordDTO, @NonNull HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String jwt = token.substring(7);
-        System.out.println("iciiiiiiiiiiiiiiiiiiii :"+jwt);
         User user = tokenRepository.findTokenByToken(jwt).getUser();
         if(user!=null){
             var oldPass = user.getPass();
@@ -175,5 +174,15 @@ public class UserService {
         }
         else
             throw new UserNotFoundException();
+    }
+
+    public List<UserDTO> getChefs() {
+        List<User> users = userRepository.findUsersByRole(Role.CHEF_DEPARTEMENT);
+        return getUserDTOS(users);
+    }
+
+    public List<UserDTO> getTechniciens() {
+        List<User> users = userRepository.findUsersByRole(Role.TECHNICIEN);
+        return getUserDTOS(users);
     }
 }

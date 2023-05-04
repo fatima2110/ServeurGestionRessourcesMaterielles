@@ -39,6 +39,7 @@ public class PanneService {
                 Ensiegnant ensiegnant = pannes.get(i).getMateriel().getEnsiegnant();
                 if(ordinateur != null){
                     PanneOrdinateurDTO panneOrdinateurDTO=PanneOrdinateurDTO.builder()
+                            .id_mat(ordinateur.getId())
                             .enseignant(ensiegnant.getNom()+" "+ensiegnant.getPrenom())
                             .code_barre(ordinateur.getCodeBarre())
                             .marque(ordinateur.getMarque())
@@ -63,6 +64,7 @@ public class PanneService {
             if(imprimente != null) {
                 if (pannes.get(i).getMateriel().getMaterielState().name().equals("EnPanne")) {
                     PanneImprimenteDTO panneImprimenteDTO = PanneImprimenteDTO.builder()
+                            .id_mat(imprimente.getId())
                             .enseignant(ensiegnant.getNom() + " " + ensiegnant.getPrenom())
                             .code_barre(imprimente.getCodeBarre())
                             .marque(imprimente.getMarque())
@@ -105,6 +107,7 @@ public class PanneService {
         if(constats != null){
             for(int i=0;i< constats.size();i++){
                 ConstatDTO constatDTO = ConstatDTO.builder()
+                        .id_constat(constats.get(i).getId())
                         .code_barre(constats.get(i).getPanne().getMateriel().getCodeBarre())
                         .date_apparition(constats.get(i).getDate_apparition())
                         .explication_panne(constats.get(i).getExplication_panne())

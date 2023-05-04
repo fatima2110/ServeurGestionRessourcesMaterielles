@@ -3,6 +3,7 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.auth;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.DepartementDto;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.EnseignantRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.FournisseurRepository;
 import ma.fstf.ServeurGestionRessourcesMaterielles.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.TokenRepository;
@@ -24,6 +25,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final FournisseurRepository fournisseurRepository;
 
     public AuthenticationResponse register(RegisterRequest request) {
         User user = new User();
@@ -38,17 +40,28 @@ public class AuthenticationService {
             user.setTelephone(request.getTelephone());
             user.setPass(passwordEncoder.encode(request.getPassword()));
             user.setRole(request.getRole());
-        }
-        else{
-            user = User.builder()
-                    .login(request.getLogin())
-                    .nom(request.getNom())
-                    .prenom(request.getPrenom())
-                    .pass(passwordEncoder.encode(request.getPassword()))
-                    .role(request.getRole())
-                    .telephone(request.getTelephone())
-                    .build();
-        }
+        }else
+        if(request.getRole().name().equals("FOURNISSEUR")){
+                Fournisseur fournisseur = Fournisseur.builder()
+                        .nomSociete(request.getLogin())
+                        .pass(passwordEncoder.encode(request.getPassword()))
+                        .build();
+                fournisseurRepository.save(fournisseur);
+                user = User.builder()
+                        .login(request.getLogin())
+                        .role(request.getRole())
+                        .pass(passwordEncoder.encode(request.getPassword())).build();
+            }
+            else{
+                user = User.builder()
+                        .login(request.getLogin())
+                        .nom(request.getNom())
+                        .prenom(request.getPrenom())
+                        .pass(passwordEncoder.encode(request.getPassword()))
+                        .role(request.getRole())
+                        .telephone(request.getTelephone())
+                        .build();
+            }
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         saveUserToken(savedUser, jwtToken);

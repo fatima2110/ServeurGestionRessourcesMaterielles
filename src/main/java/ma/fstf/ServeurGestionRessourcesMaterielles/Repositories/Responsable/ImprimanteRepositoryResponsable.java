@@ -21,7 +21,7 @@ public interface ImprimanteRepositoryResponsable extends JpaRepository<Impriment
     Imprimente findImprimenteById(Integer id);
     /****************************************************/
     @Query(nativeQuery = true,value = "" +
-            "select im.*,m.code_barre,m.date_livraison,verifie,duree_garentie,marque,prix,appel_offre_id,ensiegnant_id from materiel m,imprimente im  where im.id=m.id and m.verifie=1 and m.appel_offre_id IS null  GROUP BY im.id")
+            "select im.*,m.code_barre,m.date_livraison,verifie,duree_garentie,marque,prix,appel_offre_id,ensiegnant_id, panne from materiel m,imprimente im  where im.id=m.id and m.verifie=1 and m.appel_offre_id IS null  GROUP BY im.id")
     List<Imprimente> getBesoinIM();
     @Query(nativeQuery = true,value = "" +
             "select im.*,m.code_barre,m.date_livraison,verifie,duree_garentie,matp.marque," +
@@ -31,7 +31,7 @@ public interface ImprimanteRepositoryResponsable extends JpaRepository<Impriment
     List<Imprimente> getMaterialIM();
     @Query(nativeQuery = true,value = "" +
             "select im.*,m.code_barre,m.date_livraison,duree_garentie," +
-            "              appel_offre_id,ensiegnant_id,verifie ,m.prix,m.marque" +
+            "              appel_offre_id,ensiegnant_id,verifie,panne, materiel_state ,m.prix,m.marque" +
             "             from imprimente im,materiel m " +
             "             WHERE im.id=m.id  and m.code_barre is not  null")
     List<Imprimente> getResourceIM();

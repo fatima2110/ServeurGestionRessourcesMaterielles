@@ -16,6 +16,8 @@ import java.util.Optional;
 @Transactional
 public class MaterielService {
     @Autowired
+    private ConstatRepository constatRepository;
+    @Autowired
     private MatereilRepository matereilRepository;
     @Autowired
     private OrdinateurRepository ordinateurRepository;
@@ -134,11 +136,12 @@ public class MaterielService {
         matereilRepository.save(mat);
         panneRepository.save(panne);
     }
-    public void materielstate(String id, String state, HttpServletRequest request){
+    public void materielstate(Integer id, String state, HttpServletRequest request){
         String token = request.getHeader("Authorization");
         String jwt = token.substring(7);
         User user = tokenRepository.findTokenByToken(jwt).getUser();
-        Materiel mat=matereilRepository.findMaterielByCodeBarre(id);
+        Constat constat = constatRepository.findById(id).get();
+        Materiel mat=matereilRepository.findMaterielById(constat.getPanne().getMateriel().getId());
         if(mat != null){
             MaterielState materielState = MaterielState.valueOf(state);
             if(state.equals("REPAREE")){
@@ -147,6 +150,7 @@ public class MaterielService {
                 panne.setTechnicien(user);
                 panneRepository.save(panne);
             }
+            System.err.println("**************************************************************");
             mat.setMaterielState(materielState);
             matereilRepository.save(mat);
         }

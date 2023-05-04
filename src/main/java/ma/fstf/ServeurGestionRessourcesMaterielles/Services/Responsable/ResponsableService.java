@@ -195,6 +195,7 @@ public class ResponsableService {
         List<MaterielOrdinateurDTO> listF = new ArrayList<>();
         for (Ordinateur im : list) {
 
+            //Fournisseur f = getFounisseur(im.getId());
             Fournisseur f = getFounisseur(im.getId());
 
             Materiel_Proposition matp = getInfo(im.getId());
@@ -208,7 +209,7 @@ public class ResponsableService {
                     .disque(im.getDisque())
 
                     .marque(matp.getMarque())
-                    .Fournissuer(f.getNom_societe())
+                    .Fournissuer(f.getNomSociete())
                     .build();
             listF.add(maDto);
 
@@ -235,7 +236,7 @@ public class ResponsableService {
                     .resolution(im.getResolution())
 
                     .marque(matp.getMarque())
-                    .Fournissuer(f.getNom_societe())
+                    .Fournissuer(f.getNomSociete())
                     .build();
             listF.add(maDto);
 
@@ -316,7 +317,7 @@ public class ResponsableService {
                     .resolution(im.getResolution())
 
 
-                    .Fournissuer(f.getNom_societe())
+                    .Fournissuer(f.getNomSociete())
                     .build();
             listF.add(maDto);
 
@@ -346,7 +347,7 @@ public class ResponsableService {
                     .ecran(im.getEcran())
                     .disque(im.getDisque())
 
-                    .Fournissuer(f.getNom_societe())
+                    .Fournissuer(f.getNomSociete())
                     .build();
             listF.add(maDto);
 

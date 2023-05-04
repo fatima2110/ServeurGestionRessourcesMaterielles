@@ -15,12 +15,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table
-public class Fournisseur {
+public class Fournisseur{
     @Id
     @GeneratedValue
     private Integer id;
     @Column(unique = true)
-    private String nom_societe;
+    private String nomSociete;
+    @Column
+    private String pass;
     @Column
     private String adresse;
     @Column
@@ -30,6 +32,4 @@ public class Fournisseur {
     private String email;
     @Column
     private String gerant;
-    @Column
-    private String pass;
 }

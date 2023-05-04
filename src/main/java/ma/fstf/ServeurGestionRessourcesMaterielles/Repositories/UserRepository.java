@@ -23,4 +23,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findNonEnseignants();
 
     User findUserByRoleEquals(Role role);
+    List<User> findUsersByRole(Role role);
 }

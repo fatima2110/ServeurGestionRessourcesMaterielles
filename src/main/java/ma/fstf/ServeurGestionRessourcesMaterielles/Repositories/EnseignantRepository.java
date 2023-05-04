@@ -1,6 +1,7 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

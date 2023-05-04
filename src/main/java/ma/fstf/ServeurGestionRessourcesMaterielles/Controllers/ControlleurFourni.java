@@ -7,8 +7,11 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur.OrdinateurDto
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Services.FournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -39,6 +42,10 @@ public class ControlleurFourni {
     }
 
     //PROPOSITION
+    @GetMapping("/getFournisseur")
+    public ResponseEntity<Fournisseur> getFournisseur(HttpServletRequest request){
+        return new ResponseEntity<>(ServicFour.getFournisseur(request), HttpStatus.OK);
+    }
     @PostMapping("/ADDPropo")
     public String ADDPROP(@RequestBody Proposition prop){
         return ServicFour.ADDPROPO(prop);

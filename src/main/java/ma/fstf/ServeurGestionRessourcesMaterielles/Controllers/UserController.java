@@ -22,6 +22,14 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getEnseignants(@PathVariable String departement){
         return new ResponseEntity<>(userService.getEnseignants(departement), HttpStatus.OK);
     }
+    @GetMapping("/getChefs")
+    public ResponseEntity<List<UserDTO>> getChefDept(){
+        return new ResponseEntity<>(userService.getChefs(), HttpStatus.OK);
+    }
+    @GetMapping("/getTechniciens")
+    public ResponseEntity<List<UserDTO>> getTechniciens(){
+        return new ResponseEntity<>(userService.getTechniciens(), HttpStatus.OK);
+    }
     @GetMapping("/getUsers")
     public ResponseEntity<List<UserDTO>> getUsers(){
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);

@@ -10,12 +10,15 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.Prop
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class FournisseurService {
 
+    @Autowired
+    TokenRepository tokenRepository;
     @Autowired
     FournisseurRepository fouRep;
     @Autowired
@@ -38,7 +41,7 @@ public class FournisseurService {
 
         fouRep.save(NvFour);
         FournisseurCnx fcnx=new FournisseurCnx();
-        fcnx.setNom_societe(NvFour.getNom_societe());
+        fcnx.setNom_societe(NvFour.getNomSociete());
         fcnx.setPass(NvFour.getPass());
         return Login(fcnx);
     }
@@ -46,7 +49,7 @@ public class FournisseurService {
     public Fournisseur Login(FournisseurCnx fourLog) {
         List<Fournisseur> fournisseurList = fouRep.findAll();
         for (Fournisseur f : fournisseurList) {
-            if (f.getPass().equals(fourLog.getPass()) && f.getNom_societe().equals(fourLog.getNom_societe()))
+            if (f.getPass().equals(fourLog.getPass()) && f.getNomSociete().equals(fourLog.getNom_societe()))
                 return f;
         }
         return null;
@@ -56,8 +59,18 @@ public class FournisseurService {
 
     //ADD PROPOSITION && UPDATE PROPOSITION
     public String ADDPROPO(Proposition prop){
+        System.out.println("TTTTTTTTTTTTTTTTTT "+prop.getFournisseur().getId());
+        Fournisseur fournisseur = fouRep.findFournisseurById(prop.getFournisseur().getId());
+        prop.setFournisseur(fournisseur);
         return ""+PropRep.save(prop).getId();
-
+    }
+    public Fournisseur getFournisseur(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        String jwt = token.substring(7);
+        User user = tokenRepository.findTokenByToken(jwt).getUser();
+        Fournisseur fournisseur = fouRep.findFournisseurByNomSociete(user.getLogin());
+        System.err.println(fournisseur.getNomSociete() + fournisseur.getId());
+        return  fournisseur;
     }
     //DELETE PROPOSITION
     public boolean DELETEProp(Integer propid){

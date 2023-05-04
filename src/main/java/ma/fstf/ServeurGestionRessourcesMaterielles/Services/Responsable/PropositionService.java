@@ -124,10 +124,9 @@ if(ordinateur ==null)
                     .prix(materiel_Proposition.get(i).getPrix())
 
                     .build();
-            list1.add(propositionImprimenteDTO);System.out.println(propositionImprimenteDTO.getResolution());
+            list1.add(propositionImprimenteDTO);
         }}}
 
-        System.out.println(list1.get(0).getResolution());
 
         return list1;
     }
