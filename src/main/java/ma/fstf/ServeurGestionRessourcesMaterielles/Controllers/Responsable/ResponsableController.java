@@ -1,18 +1,15 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Controllers;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Controllers.Responsable;
 
 import lombok.AllArgsConstructor;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Fournisseur;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Imprimente;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Message;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ordinateur;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Services.MaterielService;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Services.PropositionService;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable.PropositionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -73,5 +70,42 @@ public class ResponsableController {
     public void envoyerNotifRejet(@RequestBody MessageDTO msg) throws Exception {
         propositionService.envoyerMotif(msg);
     }
+    @GetMapping("/message/{id}")
+    public  List<MessageDTO> getMessage(@PathVariable Integer id){
+        return   propositionService.getMessage(id);
+    }
 
+    @PostMapping("/ajouter")
+    public void AjouterM(@RequestBody MessageDTO msg)
+    {
+        propositionService.AjouterMessage(msg);
+    }
+    @GetMapping("/suprimmer/{id}")
+    public void suprimmer(@PathVariable Integer id)
+    {
+        propositionService.suprimerMessage(id);
+    }
+    @GetMapping("/number/{id}")
+    public int NumberMessage(@PathVariable Integer id)
+    {
+;
+        System.out.println("vue "+propositionService.NombreMessage(id));
+        return  propositionService.NombreMessage(id);
+    }
+    @GetMapping("/changer")
+    public void changer(List<MessageDTO> lst)
+    {
+        propositionService.modfierVue(lst);
+    }
+    @PostMapping("/infoFournisseur")
+    public  void  InfoFournosseur(@RequestBody Fournisseur f)
+    {
+        propositionService.InfoFournisseur(f);
+    }
+    @GetMapping("/info/{id}")
+    public  Fournisseur informationFournisseur(@PathVariable Integer id)
+    {
+        return  propositionService.InformationFournisseur(id);
+    }
 }
+

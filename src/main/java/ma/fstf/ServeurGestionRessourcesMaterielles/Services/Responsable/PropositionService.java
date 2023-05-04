@@ -1,11 +1,14 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Services;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -225,10 +228,82 @@ public List<Fournisseur> getFournisseurListeNoir(){
 //        messageRepository.save(m);
 //
 //    }
+/********************Recuperer les messages******************************/
+public  List<MessageDTO> getMessage(Integer id){
+
+   List<Message>  l=messageRepository.findAllMessageByid(id);
+   List<MessageDTO> mes=new ArrayList<>();
+
+   for(Message m:l){
+       boolean exsist=false;
+       int idrec=0;
+       if(m.getRecepteur()!=null)
+       {
+           idrec=m.getRecepteur().getId();
+       }
+       else{
+           idrec=m.getFournisseur().getId();
+           if(m.getFournisseur().getGerant()!=null)
+               exsist=true;
 
 
+       }
+       MessageDTO mdto=MessageDTO.builder().message(m.getMessage()).emteur(m.getEmetteur().getNom()+" "+m.getEmetteur().getPrenom())
+               .idem(m.getEmetteur().getId())
+               .id(m.getId())
+               .idrec(idrec)
+               .exsist(exsist)
+               .date(m.getDate())
+               .build();
+       mes.add(mdto);
+   }
+   return mes;
+}
 
+public void suprimerMessage(Integer id)
+{
+    Message m=messageRepository.findMessageByid(id);
+    messageRepository.delete(m);
 
+}
+public void AjouterMessage(MessageDTO M)
+{
+    LocalDate lt = LocalDate.now();
 
+    DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
+    String text = lt.format(formatters);
+    LocalDate parsedDate = LocalDate.parse(text, formatters);
+    System.out.println("date "+lt);
+    Message m=new Message();
+    m.setMessage(M.getMessage());
+    User em=userRepository.findUserByid(M.getIdem());
+    User rec=userRepository.findUserByid(M.getIdrec());
+    m.setEmetteur(em);
+    m.setRecepteur(rec);
+    m.setDate(parsedDate);
+
+}
+
+public  Integer NombreMessage(Integer id)
+{
+    return  messageRepository.numbermessage(id);
+}
+public void modfierVue(List<MessageDTO> lst)
+{
+    for(MessageDTO m: lst)
+    {
+        Message msg=messageRepository.findMessageByid(m.getId());
+        msg.setVue(true);
+        messageRepository.save(msg);
+    }
+}
+public void InfoFournisseur(Fournisseur f)
+{
+    fournisseurRepository.save(f);
+}
+public Fournisseur InformationFournisseur(Integer id)
+{
+    return  fournisseurRepository.findFournisseurById(id);
+}
 }
 

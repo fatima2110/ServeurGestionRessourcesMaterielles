@@ -17,8 +17,13 @@ import java.time.LocalDate;
 @Builder
 public class MessageDTO {
     private Integer idFournisseur;
-
+private Integer id;
     private String message;
+    private String emteur;
+    private LocalDate date;
+    private  Integer idem;
+    private  Integer idrec;
+    private boolean exsist;
 
 
 

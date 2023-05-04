@@ -15,6 +15,7 @@ public class FournisseurDto {
     private String nom_societe;
     private Integer id;
     private String adresse;
+    private String gerant;
 
     private String email;
 }

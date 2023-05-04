@@ -30,6 +30,8 @@ public class Materiel {
     private LocalDate date_livraison;
     @Column
     private Integer duree_garentie;
+    @Column(columnDefinition = "boolean default false")
+    private boolean verifie;
     @ManyToOne
     @JoinColumn(name = "appel_offre_id")
     private AppelOffre appelOffre;
