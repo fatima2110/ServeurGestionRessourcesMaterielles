@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -22,6 +23,8 @@ public class Panne {
     @ManyToOne
     @JoinColumn(name = "technicien_id")
     private User technicien;
+    @Column
+    private LocalDate datePanne;
     @ManyToOne
     @JoinColumn(name = "materiel_id")
     private Materiel materiel;

@@ -7,12 +7,12 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.FournisseurRepository;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.PropositionRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.back.Appel_OffreRep;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.back.Materiel_PropositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class FournisseurService {
     @Autowired
     ImprimanteRepository ImpRep;
     @Autowired
-    Appel_OffreRep AppRep;
+    AppleOffreRepo AppRep;
     @Autowired
     EnseignantRepository EnseRep;
 
@@ -61,8 +61,7 @@ public class FournisseurService {
 
     //ADD PROPOSITION && UPDATE PROPOSITION
     public String ADDPROPO(Proposition prop){
-        System.out.println("TTTTTTTTTTTTTTTTTT "+prop.getFournisseur().getId());
-        Fournisseur fournisseur = fouRep.findFournisseurById(prop.getFournisseur().getId());
+       Fournisseur fournisseur = fouRep.findFournisseurById(prop.getFournisseur().getId());
         prop.setFournisseur(fournisseur);
         return ""+PropRep.save(prop).getId();
     }
@@ -258,7 +257,7 @@ public class FournisseurService {
     }
 
     public List<AppelOffre> ListeApp(){
-       return AppRep.findAll();
+       return AppRep.findAllByDateFinAfter(LocalDate.now());
     }
 
 

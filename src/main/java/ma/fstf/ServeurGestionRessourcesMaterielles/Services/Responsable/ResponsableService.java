@@ -131,50 +131,54 @@ public class ResponsableService {
     //****************Modier id_appel_offre de materiel*************////////////////
 
     public void EnregisterIm(List<MaterielImprimenteDTO> list) {
-        AppelOffre ap = new AppelOffre();
-        ap.setId(list.get(0).getAppleoffreid());
-        ap.setDate_debut(list.get(0).getDatedebut());
-        ap.setDate_fin(list.get(0).getDateFin());
-        this.genereAppel(ap);
-        ap = appelRepo.getAppleOffre();
-        System.out.println(ap);
+        if( !list.isEmpty()){
+            AppelOffre ap = new AppelOffre();
+            ap.setId(list.get(0).getAppleoffreid());
+            ap.setDateDebut(list.get(0).getDatedebut());
+            ap.setDateFin(list.get(0).getDateFin());
+            this.genereAppel(ap);
+            ap = appelRepo.getAppleOffre();
+            System.out.println(ap);
 
-        System.out.println("hello imprimente pour enrgistrer");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("Im in boucle" + i);
+            System.out.println("hello imprimente pour enrgistrer");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println("Im in boucle" + i);
 
-            Materiel m = matRepo.findMaterielByid(list.get(i).getId());
-            m.setAppelOffre(ap);
-            System.out.println("test");
-            System.out.println("Material:" + i + "\t" + m);
-            matRepo.save(m);
+                Materiel m = matRepo.findMaterielByid(list.get(i).getId());
+                m.setAppelOffre(ap);
+                System.out.println("test");
+                System.out.println("Material:" + i + "\t" + m);
+                matRepo.save(m);
+            }
+
         }
-
 
     }
 
     /********************Ordinateur************************/
     public void EnregisterOm(List<MaterielOrdinateurDTO> list) {
 
-        AppelOffre ap = new AppelOffre();
-        ap.setId(list.get(0).getAppleoffreid());
-        ap.setDate_debut(list.get(0).getDatedebut());
-        ap.setDate_fin(list.get(0).getDateFin());
-        this.genereAppel(ap);
-        ap = appelRepo.getAppleOffre();
-        System.out.println(ap);
+        if(!list.isEmpty()){
+            AppelOffre ap = new AppelOffre();
+            ap.setId(list.get(0).getAppleoffreid());
+            ap.setDateDebut(list.get(0).getDatedebut());
+            ap.setDateFin(list.get(0).getDateFin());
+            this.genereAppel(ap);
+            ap = appelRepo.getAppleOffre();
+            System.out.println(ap);
 
-        System.out.println("hello imprimente pour enrgistrer");
+            System.out.println("hello imprimente pour enrgistrer");
 
 
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("Im in boucle" + i);
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println("Im in boucle" + i);
 
-            Materiel m = matRepo.findMaterielByid(list.get(i).getId());
-            m.setAppelOffre(ap);
-            System.out.println("test");
-            System.out.println("Material:" + i + "\t" + m);
-            matRepo.save(m);
+                Materiel m = matRepo.findMaterielByid(list.get(i).getId());
+                m.setAppelOffre(ap);
+                System.out.println("test");
+                System.out.println("Material:" + i + "\t" + m);
+                matRepo.save(m);
+            }
         }
 
     }
@@ -263,6 +267,7 @@ public class ResponsableService {
 
             m.setDate_livraison(parsedDate);
             m.setDuree_garentie(list.get(i).getDureegarantie());
+            m.setMaterielState(MaterielState.EnService);
             System.out.println("Material:" + i + "\t" + m);
             matRepo.save(m);
         }
@@ -289,6 +294,7 @@ public class ResponsableService {
             m.setDate_livraison(parsedDate);
             m.setDuree_garentie(list.get(i).getDureegarantie());
             m.setPrix(list.get(i).getPrix());
+            m.setMaterielState(MaterielState.EnService);
             m.setMarque(list.get(i).getMarque());
             System.out.println("Material:" + i + "\t" + m);
             matRepo.save(m);

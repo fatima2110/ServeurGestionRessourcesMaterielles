@@ -4,6 +4,7 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.AppelOffre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AppleOffreRepo extends JpaRepository<AppelOffre,Integer> {
@@ -15,6 +16,6 @@ public interface AppleOffreRepo extends JpaRepository<AppelOffre,Integer> {
     List<AppelOffre> findAll();
 
     AppelOffre getById(Integer id);
-
+    List<AppelOffre> findAllByDateFinAfter(LocalDate currentDate);
 
 }

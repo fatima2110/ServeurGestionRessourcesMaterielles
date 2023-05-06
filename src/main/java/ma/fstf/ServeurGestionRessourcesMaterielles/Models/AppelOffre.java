@@ -19,7 +19,7 @@ public class AppelOffre {
     @GeneratedValue
     private Integer id;
     @Column
-    private LocalDate date_debut;
+    private LocalDate dateDebut;
     @Column
-    private LocalDate date_fin;
+    private LocalDate dateFin;
 }

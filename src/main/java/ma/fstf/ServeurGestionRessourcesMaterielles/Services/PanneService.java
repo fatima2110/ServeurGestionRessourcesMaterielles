@@ -95,6 +95,8 @@ public class PanneService {
                         .frequence(constatDTO.getFrequence())
                         .ordre(constatDTO.getOrdre())
                         .panne(panne)
+                        .treated(false)
+                        .send(false)
                         .build();
                 constatRepository.save(constat);
             }
@@ -105,7 +107,7 @@ public class PanneService {
     }
 
     public List<ConstatDTO> getConstats(HttpServletRequest request){
-        List<Constat> constats = new ArrayList<>();
+        List<Constat> constats = null;
         String token = request.getHeader("Authorization");
         String jwt = token.substring(7);
         User user = tokenRepository.findTokenByToken(jwt).getUser();

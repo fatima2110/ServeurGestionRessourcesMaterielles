@@ -40,10 +40,10 @@ public class MaterielController {
     public void enPanne(@PathVariable int id){
         materielService.enPanne(id);
     }
-    @GetMapping("/materielstate/{id}/{state}")
-    public void materielstate(@PathVariable String id, @PathVariable String state, HttpServletRequest request){
+    @GetMapping("/materielstate/{id}/{state}/{id_constat}")
+    public void materielstate(@PathVariable String id, @PathVariable String state,@PathVariable int id_constat, HttpServletRequest request){
         System.err.println(id +" "+" "+state);
-        materielService.materielstate(id, state, request);
+        materielService.materielstate(id, state,id_constat, request);
     }
     @CrossOrigin("*")
     @GetMapping("/getBesoinsOrdinateurs/{id}")

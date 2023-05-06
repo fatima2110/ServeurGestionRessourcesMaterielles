@@ -13,7 +13,9 @@ import java.util.List;
 public interface PanneRepository extends JpaRepository<Panne, Integer> {
     Panne findByMateriel(Materiel materiel);
     List<Panne> findAllByTreatedIsFalse();
+
     Panne findPanneByMaterielAndTreatedIsFalse(Materiel materiel);
+    List<Panne> findPanneByMaterielAndTreatedIsTrueOrderByDatePanneDesc(Materiel materiel);
     Panne findPanneByTechnicien(User user);
     List<Panne> findAllByTechnicien(User user);
 

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -141,13 +142,13 @@ public class MaterielService {
     }
     public void enPanne(int id){
         Materiel mat=matereilRepository.findMaterielById(id);
-        Panne panne = Panne.builder().materiel(mat).build();
+        Panne panne = Panne.builder().materiel(mat).datePanne(LocalDate.now()).build();
         mat.setPanne(true);
         mat.setMaterielState(MaterielState.EnPanne);
         matereilRepository.save(mat);
         panneRepository.save(panne);
     }
-    public void materielstate(String id, String state, HttpServletRequest request){
+    public void materielstate(String id, String state,int id_constat, HttpServletRequest request){
         // id : materiel!!!!!!!!!!!!!!!!!
         String token = request.getHeader("Authorization");
         String jwt = token.substring(7);
@@ -162,9 +163,7 @@ public class MaterielService {
                 panneRepository.save(panne);
             }
             if(state.equals("EnReparation") || state.equals("DoitChange")){
-                Panne panne = panneRepository.findPanneByMaterielAndTreatedIsFalse(mat);
-                System.out.println("-------------------------------"+panne.getId());
-                Constat constat = constatRepository.findConstatByPanne(panne);
+                Constat constat = constatRepository.findById(id_constat).get();
                 constat.setTreated(true);
                 constatRepository.save(constat);
             }
