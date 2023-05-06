@@ -140,12 +140,12 @@ public class MaterielService {
         matereilRepository.save(mat);
         panneRepository.save(panne);
     }
-    public void materielstate(Integer id, String state, HttpServletRequest request){
+    public void materielstate(String id, String state, HttpServletRequest request){
+        // id : materiel!!!!!!!!!!!!!!!!!
         String token = request.getHeader("Authorization");
         String jwt = token.substring(7);
         User user = tokenRepository.findTokenByToken(jwt).getUser();
-        Constat constat = constatRepository.findById(id).get();
-        Materiel mat=matereilRepository.findMaterielById(constat.getPanne().getMateriel().getId());
+        Materiel mat=matereilRepository.findMaterielByCodeBarre(id);
         if(mat != null){
             MaterielState materielState = MaterielState.valueOf(state);
             if(state.equals("REPAREE")){
@@ -154,7 +154,13 @@ public class MaterielService {
                 panne.setTechnicien(user);
                 panneRepository.save(panne);
             }
-            System.err.println("**************************************************************");
+            if(state.equals("EnReparation") || state.equals("DoitChange")){
+                Panne panne = panneRepository.findPanneByMaterielAndTreatedIsFalse(mat);
+                System.out.println("-------------------------------"+panne.getId());
+                Constat constat = constatRepository.findConstatByPanne(panne);
+                constat.setTreated(true);
+                constatRepository.save(constat);
+            }
             mat.setMaterielState(materielState);
             matereilRepository.save(mat);
         }

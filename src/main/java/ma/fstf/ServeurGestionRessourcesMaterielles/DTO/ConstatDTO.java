@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 
 @Data
@@ -19,4 +20,6 @@ public class ConstatDTO {
     private String explication_panne;
     private String frequence;
     private String ordre;
+    private Boolean treated;
+    private Boolean send;
 }

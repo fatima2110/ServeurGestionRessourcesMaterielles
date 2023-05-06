@@ -26,6 +26,10 @@ public class Constat {
     private String frequence;
     @Column
     private String ordre;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean treated;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean send;
     @ManyToOne
     @JoinColumn(name = "panne_id")
     private Panne panne;

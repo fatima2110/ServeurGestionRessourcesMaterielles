@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -39,7 +40,17 @@ public class PanneController {
     }
 
     @GetMapping("/getConstats")
-    public ResponseEntity<List<ConstatDTO>> getConstats(){
-        return new ResponseEntity<>(panneService.getConstats(), HttpStatus.OK);
+    public ResponseEntity<List<ConstatDTO>> getConstats(HttpServletRequest request){
+        return new ResponseEntity<>(panneService.getConstats(request), HttpStatus.OK);
+    }
+    @GetMapping("/sendConstat/{id}")
+    public ResponseEntity<?> sendConstat(@PathVariable Integer id){
+        panneService.sendConstat(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @DeleteMapping("/deleteConstat/{id}")
+    public ResponseEntity<?> deleteConstat(@PathVariable Integer id){
+        panneService.deleteConstat(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

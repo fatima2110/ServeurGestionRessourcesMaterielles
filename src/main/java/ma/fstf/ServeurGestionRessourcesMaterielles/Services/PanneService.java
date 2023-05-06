@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
 public class PanneService {
+    @Autowired
+    private TokenRepository tokenRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -101,9 +104,23 @@ public class PanneService {
         }
     }
 
-    public List<ConstatDTO> getConstats(){
+    public List<ConstatDTO> getConstats(HttpServletRequest request){
+        List<Constat> constats = new ArrayList<>();
+        String token = request.getHeader("Authorization");
+        String jwt = token.substring(7);
+        User user = tokenRepository.findTokenByToken(jwt).getUser();
+        if (user.getRole().equals(Role.RESPONSABLE)){
+            constats = constatRepository.findAllBySendIsTrue();
+        }
+        else{
+            /*List<Panne> pannes = panneRepository.findAllByTechnicien(user);
+            System.out.println(constatRepository.findConstatByPanne(pannes.get(0)).getExplication_panne());
+            for(int i =0;i<pannes.size();i++){
+                constats.add(constatRepository.findConstatByPanne(pannes.get(i)));
+            }*/
+            constats = constatRepository.findAllBySendIsFalse();
+        }
         List<ConstatDTO> constatDTOS = new ArrayList<>();
-        List<Constat> constats = constatRepository.findAll();
         if(constats != null){
             for(int i=0;i< constats.size();i++){
                 ConstatDTO constatDTO = ConstatDTO.builder()
@@ -113,10 +130,27 @@ public class PanneService {
                         .explication_panne(constats.get(i).getExplication_panne())
                         .frequence(constats.get(i).getFrequence())
                         .ordre(constats.get(i).getOrdre())
+                        .treated(constats.get(i).getTreated())
+                        .send(constats.get(i).getSend())
                         .build();
                 constatDTOS.add(constatDTO);
             }
         }
         return constatDTOS;
+    }
+
+    public void sendConstat(Integer id) {
+        Constat constat = constatRepository.findById(id).get();
+        if(constat != null){
+            constat.setSend(true);
+            constatRepository.save(constat);
+        }
+    }
+
+    public void deleteConstat(Integer id) {
+        Constat constat = constatRepository.findById(id).get();
+        if(constat != null){
+           constatRepository.deleteById(id);
+        }
     }
 }
