@@ -6,7 +6,6 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel_Proposition;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

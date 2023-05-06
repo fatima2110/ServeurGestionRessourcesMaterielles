@@ -6,7 +6,6 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Affectation;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Fournisseur;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.AffectationRepository;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable.AffectationService;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable.PropositionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +98,41 @@ public class ResponsableController {
     public void addAffectaion(@RequestBody AffectationDto affectation) throws Exception {
         affectationService.addAffectation(affectation);
     }
-
+    @GetMapping("/message/{id}")
+    public  List<MessageDTO> getMessage(@PathVariable Integer id){
+        return   propositionService.getMessage(id);
+    }
+    @PostMapping("/ajouter")
+    public void AjouterM(@RequestBody MessageDTO msg)
+    {
+        propositionService.AjouterMessage(msg);
+    }
+    @GetMapping("/suprimmer/{id}")
+    public void suprimmer(@PathVariable Integer id)
+    {
+        propositionService.suprimerMessage(id);
+    }
+    @GetMapping("/number/{id}")
+    public int NumberMessage(@PathVariable Integer id)
+    {
+;
+        System.out.println("vue "+propositionService.NombreMessage(id));
+        return  propositionService.NombreMessage(id);
+    }
+    @GetMapping("/changer")
+    public void changer(List<MessageDTO> lst)
+    {
+        propositionService.modfierVue(lst);
+    }
+    @PostMapping("/infoFournisseur")
+    public  void  InfoFournosseur(@RequestBody Fournisseur f)
+    {
+        propositionService.InfoFournisseur(f);
+    }
+    @GetMapping("/info/{id}")
+    public  Fournisseur informationFournisseur(@PathVariable Integer id)
+    {
+        return  propositionService.InformationFournisseur(id);
+    }
 }
+

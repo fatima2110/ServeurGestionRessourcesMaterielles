@@ -1,4 +1,4 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Fournisseur;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ordinateur;

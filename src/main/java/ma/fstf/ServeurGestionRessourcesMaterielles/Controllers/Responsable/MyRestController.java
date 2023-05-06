@@ -18,7 +18,7 @@ public class MyRestController {
 
     @Autowired
     ResponsableService ImService;
-@Autowired
+    @Autowired
 
     @GetMapping("/message")
     public String getMessage() {
@@ -33,9 +33,9 @@ public class MyRestController {
 
     /*******************************Responsable******************************/
     /******************************Recuperer Les besoins*********************/
-   /*********************************les Imprimantes******************************/
-   @CrossOrigin(origins = "http://localhost:4200")
-   @GetMapping("/besoin/imprimantes")
+    /*********************************les Imprimantes******************************/
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/besoin/imprimantes")
     public  ResponseEntity<List<MaterielImprimenteDTO>> getbesoinIM()
     {
         List<MaterielImprimenteDTO> listF=ImService.getbesoinIM();
@@ -52,7 +52,7 @@ public class MyRestController {
     /************Pour generer appele offre et update id_appeloffre Material*******/
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/save")
-   public void  Save(@RequestBody List<MaterielImprimenteDTO> listmat)
+    public void  Save(@RequestBody List<MaterielImprimenteDTO> listmat)
     {
         ImService.EnregisterIm(listmat);
 
@@ -65,23 +65,23 @@ public class MyRestController {
     }
     /***************Pour Enregisterer Material Livre******/
     /*****************************Recuprer les Meteriel *************************/
-   @GetMapping("/EnregistererOrd")
+    @GetMapping("/EnregistererOrd")
     public List<MaterielOrdinateurDTO> getMaterielOrd()
-   {
-       return  ImService.getMatOr();
-   }
-   @GetMapping("/EnregistrerIm")
+    {
+        return  ImService.getMatOr();
+    }
+    @GetMapping("/EnregistrerIm")
     public  List<MaterielImprimenteDTO> getMaterielIm()
-   {
-       return  ImService.getMatIm();
-   }
-   /*************************************Enregistrer*******************************************/
-   @PostMapping("/EnregistrerMateLivreOr")
+    {
+        return  ImService.getMatIm();
+    }
+    /*************************************Enregistrer*******************************************/
+    @PostMapping("/EnregistrerMateLivreOr")
     public void SaveMaterialLivreOr(@RequestBody List<MaterielOrdinateurDTO> list)
-   {
+    {
 
-       ImService.EnregisterMatOR(list);
-   }
+        ImService.EnregisterMatOR(list);
+    }
     @PostMapping("/EnregistrerMateLivreIm")
     public void SaveMaterialLivreIm(@RequestBody List<MaterielImprimenteDTO> list)
     {
@@ -93,7 +93,7 @@ public class MyRestController {
     @GetMapping("/ressourcesIm")
     public List<MaterielImprimenteDTO> getResources()
     {
-      return   ImService.getRessourcesIm();
+        return   ImService.getRessourcesIm();
     }
     /***************************************Ordinateur*************************************/
     @GetMapping("/ressourcesOr")
@@ -102,7 +102,7 @@ public class MyRestController {
         return ImService.getRessourcesOr();
     }
     /*************************************Suprimer les ressources**************************************************/
-    @PostMapping("/suprimerim/{id}")
+    @GetMapping("/suprimerim/{id}")
     public  void  suprimerIm(@PathVariable Integer id)
     {
         System.out.println("Suprimer me "+id);

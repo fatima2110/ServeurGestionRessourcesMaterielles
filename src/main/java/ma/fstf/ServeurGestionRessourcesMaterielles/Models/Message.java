@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -19,6 +21,9 @@ public class Message {
     private Integer id;
     @Column
     private String message;
+    private LocalDate date;
+    @Column(columnDefinition = "boolean default false")
+    private boolean vue;
     @ManyToOne
     @JoinColumn(name = "emetteur_id")
     private User emetteur;

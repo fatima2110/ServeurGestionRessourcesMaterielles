@@ -3,7 +3,14 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.Services;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.AffectationRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.AffectationRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.MaterielDto;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Imprimente;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ordinateur;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.EnseignantRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.MatereilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

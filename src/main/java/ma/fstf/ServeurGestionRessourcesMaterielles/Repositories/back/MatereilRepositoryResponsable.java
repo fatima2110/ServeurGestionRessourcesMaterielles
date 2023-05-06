@@ -1,4 +1,4 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.back;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;

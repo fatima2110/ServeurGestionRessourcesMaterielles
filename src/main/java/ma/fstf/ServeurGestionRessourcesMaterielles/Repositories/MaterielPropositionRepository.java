@@ -1,4 +1,4 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel_Proposition;
@@ -20,5 +20,13 @@ public interface MaterielPropositionRepository extends JpaRepository<Materiel_Pr
     Materiel_Proposition getMaterialProposition(@Param("id") Integer id);
     //    Materiel findMaterielByid(Integer id);
     Materiel_Proposition findMateriel_PropositionByMateriel(Materiel m);
-Materiel_Proposition findMateriel_PropositionByMaterielId(Integer id);
+    Materiel_Proposition findMateriel_PropositionByMaterielId(Integer id);
+
+    List<Materiel_Proposition> findByProposition(Proposition prop);
+
+    Materiel_Proposition save(Materiel_Proposition MatProp);
+
+    //@Override
+    //void deleteByMaterielAndAndMarqueAndPrix();
+
 }

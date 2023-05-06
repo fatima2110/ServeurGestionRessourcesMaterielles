@@ -3,7 +3,7 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.auth;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.DepartementDto;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.EnseignantRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.FournisseurRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.FournisseurRepository;
 import ma.fstf.ServeurGestionRessourcesMaterielles.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.TokenRepository;

@@ -4,7 +4,7 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.MaterielImprimenteDTO;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.MaterielOrdinateurDTO;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +16,18 @@ import java.util.List;
 @Service
 public class ResponsableService {
     @Autowired
-    private ImprimanteRepositoryResponsable imRepo;
+    private ImprimanteRepository imRepo;
     @Autowired
-    private EnseignantRepositoryResponsable ensiegRepo;
+    private EnseignantRepository ensiegRepo;
 
     @Autowired
-    private  OrdinateurRepositoryResponsable ordRepo;
+    private  OrdinateurRepository ordRepo;
 
     @Autowired
     AppleOffreRepo appelRepo;
 
-   @Autowired
-    private MatereilRepositoryResponsable matRepo;
+    @Autowired
+    private MatereilRepository matRepo;
     @Autowired
     FournisseurRepository fournRepo;
     @Autowired
@@ -182,22 +182,23 @@ public class ResponsableService {
 
     //Recuprer La marque et le prix pour chaque Materiel//////
     public Materiel_Proposition getInfo(Integer id) {
-
-        return matpropRepo.getMaterialProposition(id);
+        System.out.println("id:"+id);
+        Materiel_Proposition m=new Materiel_Proposition();
+        m=matpropRepo.getMaterialProposition(id);
+        return m;
     }
 
     /*****************Ordinateur******************/
     public List<MaterielOrdinateurDTO> getMatOr() {
 
         List<Ordinateur> list = ordRepo.getMaterialord();
-
+        System.out.println("list"+list);
 
         List<MaterielOrdinateurDTO> listF = new ArrayList<>();
         for (Ordinateur im : list) {
 
-            //Fournisseur f = getFounisseur(im.getId());
             Fournisseur f = getFounisseur(im.getId());
-
+            System.out.println("fournisseur"+f);
             Materiel_Proposition matp = getInfo(im.getId());
 
             MaterielOrdinateurDTO maDto = MaterielOrdinateurDTO.builder()
@@ -227,11 +228,11 @@ public class ResponsableService {
 
             Fournisseur f = getFounisseur(im.getId());
 
-
+            System.out.println("salam"+im.getId());
             Materiel_Proposition matp = getInfo(im.getId());
             MaterielImprimenteDTO maDto = MaterielImprimenteDTO.builder()
                     .prix(matp.getPrix())
-
+                    .id(im.getId())
                     .vitesse(im.getVitesse())
                     .resolution(im.getResolution())
 
@@ -298,6 +299,8 @@ public class ResponsableService {
 /*************************************************Recuprer les resssources************************************/
     /*********************************************Les imprimentes***********************************************/
     public List<MaterielImprimenteDTO> getRessourcesIm() {
+
+        System.out.println("Matearil pour enregistrer");
         List<Imprimente> list = imRepo.getResourceIM();
         List<MaterielImprimenteDTO> listF = new ArrayList<>();
         for (Imprimente im : list) {
@@ -327,13 +330,14 @@ public class ResponsableService {
 
     /*********************************************Les Ordinateur**********************************************/
     public List<MaterielOrdinateurDTO> getRessourcesOr() {
+        System.out.println("Matearil pour enregistrer");
         List<Ordinateur> list = ordRepo.getResourceOR();
         List<MaterielOrdinateurDTO> listF = new ArrayList<>();
         for (Ordinateur im : list) {
 
             Fournisseur f = getFounisseur(im.getId());
             Materiel_Proposition matp = getInfo(im.getId());
-     Materiel m=matRepo.findMaterielByid(im.getId());
+            Materiel m=matRepo.findMaterielByid(im.getId());
 
             MaterielOrdinateurDTO maDto = MaterielOrdinateurDTO.builder()
                     .prix(matp.getPrix())
@@ -356,18 +360,22 @@ public class ResponsableService {
     }  /******* **********************************Suprimmer Materiel******************************************/
     /**************************************************Imprimente***********************************/
     public void suprimerIm(Integer id) {
-Imprimente im=imRepo.findImprimenteByid(id);
-System.out.println("Imprimente pour suprimmer");
-Materiel m=matRepo.findMaterielByid(id);
+        Imprimente im=imRepo.findImprimenteByid(id);
+        System.out.println("Imprimente pour suprimmer");
+        Materiel m=matRepo.findMaterielByid(id);
 
         System.out.println("Material"+m);
-System.out.println("Impriment"+im);
-Materiel_Proposition matp=matpropRepo.findMateriel_PropositionByMateriel(m);
-System.out.println("Material proposition"+matp);
+        System.out.println("Impriment"+im);
+        Materiel_Proposition matp=matpropRepo.findMateriel_PropositionByMateriel(m);
+        System.out.println("Material proposition"+matp);
 //Proposition p=propoRepo.getPropostion(matp.getId());
 //System.out.println("proposition"+p);
 
 
+        matpropRepo.delete(matp);
+
+        imRepo.delete(im);
+        matRepo.delete(m);
 
 
     }
@@ -382,14 +390,13 @@ System.out.println("Material proposition"+matp);
         System.out.println("Material proposition"+matp);
         System.out.println("id de material"+m.getId());
 
-      matpropRepo.delete(matp);
+        matpropRepo.delete(matp);
 
- ordRepo.delete(im);
-matRepo.delete(m);
+        ordRepo.delete(im);
+        matRepo.delete(m);
 
 
 
 
     }
 }
-

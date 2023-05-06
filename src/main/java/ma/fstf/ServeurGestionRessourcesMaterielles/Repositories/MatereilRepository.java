@@ -6,6 +6,8 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.MaterielState;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,5 +23,13 @@ public interface MatereilRepository extends JpaRepository<Materiel,Integer> {
 
     List<Materiel> findMaterielByAppelOffre(AppelOffre app);
     List<Materiel> findAllByCodeBarreIsNotNull();
+    List<Materiel> findMaterielByEnsiegnantAndAppelOffreNull(Ensiegnant ens);
+
+    Materiel findMaterielById(Integer idMateriel);
+    /*************************************************/
+    @Modifying
+    @Query(nativeQuery = true, value = "UPDATE materiel SET appel_offre_id = :idoffre WHERE materiel.id = :id")
+    void update(@Param("id") Integer id, @Param("idoffre") Integer idoffre);
+    Materiel findMaterielByid(Integer id);
 
 }

@@ -1,4 +1,4 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.back;
 
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel_Proposition;

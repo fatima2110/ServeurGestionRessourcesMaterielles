@@ -5,8 +5,10 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur.ImprimenteDto
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.Fournisseur.OrdinateurDto;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.FournisseurRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.Responsable.PropositionRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.FournisseurRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.PropositionRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.back.Appel_OffreRep;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.back.Materiel_PropositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
