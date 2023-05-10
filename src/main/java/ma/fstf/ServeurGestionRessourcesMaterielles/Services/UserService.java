@@ -71,6 +71,11 @@ public class UserService {
                     .role(users.get(i).getRole())
                     .telephone(users.get(i).getTelephone())
                     .build();
+            Optional<Ensiegnant> enseignantOptional = enseignantRepository.findById(users.get(i).getId());
+            if (enseignantOptional.isPresent()) {
+                Ensiegnant enseignant = enseignantOptional.get();
+                userDTO.setDepartement(enseignant.getDepartement());
+            }
             userDTOS.add(userDTO);
         }
         return userDTOS;

@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class FournisseurDto {
-    private String nom_societe;
+    private String nomSociete;
     private Integer id;
     private String adresse;
     private String gerant;

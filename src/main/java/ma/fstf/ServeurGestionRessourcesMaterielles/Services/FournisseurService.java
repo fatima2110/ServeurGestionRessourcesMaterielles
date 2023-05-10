@@ -7,7 +7,7 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.FournisseurRepository;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.PropositionRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.back.Materiel_PropositionRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.MaterielPropositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class FournisseurService {
     @Autowired
     PropositionRepository PropRep;
     @Autowired
-    Materiel_PropositionRepository Mat_PropRep;
+    MaterielPropositionRepository Mat_PropRep;
     @Autowired
     MatereilRepository MatRepo;
     @Autowired
@@ -83,7 +83,7 @@ public class FournisseurService {
     // ALL PROPOSITION
     public List<Proposition> ListeProposion(Integer id){
         Fournisseur fou=fouRep.findByid(id);
-        List<Proposition> ListeProp =PropRep.findPropositionByFournisseur(fou);
+        List<Proposition> ListeProp =PropRep.findPropositionByFournisseurOrderByFournisseur(fou);
         return ListeProp;
 
     }
@@ -257,7 +257,23 @@ public class FournisseurService {
     }
 
     public List<AppelOffre> ListeApp(){
-       return AppRep.findAllByDateFinAfter(LocalDate.now());
+       return AppRep.findAllByDateFinAfterOrderByDateFinDesc(LocalDate.now());
+    }
+
+
+    public boolean isDejaPostuler(int id, int offreId){
+        List<Materiel> materiels = MatRepo.findAllByAppelOffre(AppRep.getById(offreId));
+        if( materiels!=null ){
+            List<Materiel_Proposition> materielPropositions = Mat_PropRep.findAllByMateriel(materiels.get(0));
+            if(materielPropositions != null){
+                var fournisseur = fouRep.findFournisseurById(id);
+                for(int i=0;i<materielPropositions.size();i++){
+                    if(materielPropositions.get(i).getProposition().getFournisseur().equals(fournisseur))
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 
 

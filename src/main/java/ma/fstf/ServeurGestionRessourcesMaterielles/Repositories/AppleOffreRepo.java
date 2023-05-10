@@ -16,6 +16,6 @@ public interface AppleOffreRepo extends JpaRepository<AppelOffre,Integer> {
     List<AppelOffre> findAll();
 
     AppelOffre getById(Integer id);
-    List<AppelOffre> findAllByDateFinAfter(LocalDate currentDate);
+    List<AppelOffre> findAllByDateFinAfterOrderByDateFinDesc(LocalDate currentDate);
 
 }

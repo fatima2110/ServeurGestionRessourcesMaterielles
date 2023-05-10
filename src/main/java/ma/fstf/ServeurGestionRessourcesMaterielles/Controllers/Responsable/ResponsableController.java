@@ -6,6 +6,7 @@ import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Affectation;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Fournisseur;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Services.MessageService;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable.AffectationService;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable.PropositionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/fournisseur")
 public class ResponsableController {
+    @Autowired
+    private MessageService messageService;
     @Autowired
    private PropositionService propositionService;
     @Autowired
@@ -133,6 +136,16 @@ public class ResponsableController {
     public  Fournisseur informationFournisseur(@PathVariable Integer id)
     {
         return  propositionService.InformationFournisseur(id);
+    }
+
+    @GetMapping("/notifier/{id}")
+    public void notifier(@PathVariable int id){
+        propositionService.notifier(id);
+    }
+
+    @GetMapping("/vue/{id}")
+    public void vue(@PathVariable int id){
+        messageService.vue(id);
     }
 }
 

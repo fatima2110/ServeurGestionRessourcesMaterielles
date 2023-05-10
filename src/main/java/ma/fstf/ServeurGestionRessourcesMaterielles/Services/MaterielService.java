@@ -42,6 +42,8 @@ public class MaterielService {
     private UserRepository userRepository;
     @Autowired
     private TokenRepository tokenRepository;
+    @Autowired
+    private MessageRepository messageRepository;
     public void saveOrdinateur(Ordinateur ordinateur,int id){
         Ensiegnant ens=enseignantRepository.findById(id).get();
         ordinateur.setEnsiegnant(ens);
@@ -241,14 +243,28 @@ public class MaterielService {
         Ordinateur ordinateur =ordinateurRepository.findOrdinateurById(newOrdinateur.getId());
         newOrdinateur.setEnsiegnant(ordinateur.getEnsiegnant());
         newOrdinateur.setVerifie(true);
-        //newOrdinateur.getEnsiegnant().setId(idEnsi);
         this.ordinateurRepository.save(newOrdinateur);
+        sendMessageNewBesoinAreAded(ordinateur.getEnsiegnant());
     }
     public void validImprimenteChef(Imprimente newImprimente){
         Imprimente imprimente1=imprimanteRepository.findImprimenteById(newImprimente.getId());
         newImprimente.setEnsiegnant(imprimente1.getEnsiegnant());
         newImprimente.setVerifie(true);
         this.imprimanteRepository.save(newImprimente);
+        sendMessageNewBesoinAreAded(newImprimente.getEnsiegnant());
+    }
+
+    private void sendMessageNewBesoinAreAded(Ensiegnant ensiegnant) {
+        User admin = userRepository.findUserByRoleEquals(Role.RESPONSABLE);
+        User chef = enseignantRepository.findEnsiegnantByDepartementAndRole(ensiegnant.getDepartement(), Role.CHEF_DEPARTEMENT);
+        Message message = Message.builder()
+                .message(NOTIFICATION.NewBesoin.getValue())
+                .recepteur(admin)
+                .emetteur(chef)
+                .date(LocalDate.now())
+                .vue(false)
+                .build();
+        messageRepository.save(message);
     }
 
 }

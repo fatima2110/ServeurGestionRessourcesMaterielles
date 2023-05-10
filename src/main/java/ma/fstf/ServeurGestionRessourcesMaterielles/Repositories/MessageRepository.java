@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message,Integer> {
-    @Query(nativeQuery = true,value = "select * from message where recepteur_id= :id  or fournisseur_id= :id  ORDER BY date desc")
+    @Query(nativeQuery = true,value = "select * from message where recepteur_id= :id  or fournisseur_id= :id ORDER BY date desc")
     List<Message> findAllMessageByid(@Param("id") Integer id);
 Message findMessageByid(Integer id);
 

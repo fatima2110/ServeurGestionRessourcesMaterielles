@@ -1,6 +1,7 @@
 package ma.fstf.ServeurGestionRessourcesMaterielles.Repositories;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,6 +33,10 @@ public interface EnseignantRepository extends JpaRepository<Ensiegnant, Integer>
 //    List<Ensiegnant> findEnsiegnantByMateriel();
 
     /**************************************/
+
+    List<Ensiegnant> findEnsiegnantsByDepartement (String dept);
+
+    Ensiegnant findEnsiegnantByDepartementAndRole(String dept, Role role);
 
 
 }

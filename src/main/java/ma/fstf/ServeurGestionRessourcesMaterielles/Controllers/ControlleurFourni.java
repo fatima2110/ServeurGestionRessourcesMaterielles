@@ -176,7 +176,10 @@ public class ControlleurFourni {
 
 
 
-
+    @GetMapping("/isDejaPostuler/{id}/{offreId}")
+    public ResponseEntity<Boolean> isDejaPostuler(@PathVariable int id, @PathVariable int offreId){
+        return new ResponseEntity<Boolean>(ServicFour.isDejaPostuler(id, offreId), HttpStatus.OK);
+    }
 
 
 
