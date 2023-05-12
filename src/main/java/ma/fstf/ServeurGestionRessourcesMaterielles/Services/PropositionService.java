@@ -1,13 +1,11 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Services;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.FournisseurRepository;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.MessageRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.back.OrdinateurRepositoryResponsable;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.PropositionRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.back.ImprimanteRepositoryResponsable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +24,11 @@ public class PropositionService {
     @Autowired
     private MaterielPropositionRepository materielPropositionRepository;
     @Autowired
-    private OrdinateurRepositoryResponsable ordinateurRepository;
+    private OrdinateurRepository ordinateurRepository;
     @Autowired
     private MessageRepository messageRepository;
     @Autowired
-    private ImprimanteRepositoryResponsable imprimanteRepository;
+    private ImprimanteRepository imprimanteRepository;
     @Autowired
     private EnseignantRepository enseignantRepository;
 

@@ -1,4 +1,4 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Services;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.AffectationDto;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Affectation;

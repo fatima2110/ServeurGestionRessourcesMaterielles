@@ -1,9 +1,9 @@
-package ma.fstf.ServeurGestionRessourcesMaterielles.Controllers.Responsable;
+package ma.fstf.ServeurGestionRessourcesMaterielles.Controllers;
 
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.MaterielImprimenteDTO;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.MaterielOrdinateurDTO;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Services.Responsable.ResponsableService;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Services.ResponsableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
