@@ -9,12 +9,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message,Integer> {
-    @Query(nativeQuery = true,value = "select * from message where recepteur_id= :id  or fournisseur_id= :id ORDER BY date desc")
+public interface MessageRepository extends JpaRepository<Message, Integer> {
+    @Query(nativeQuery = true, value = "select * from message where recepteur_id= :id  or fournisseur_id= :id ORDER BY date desc")
     List<Message> findAllMessageByid(@Param("id") Integer id);
-Message findMessageByid(Integer id);
 
-@Query(nativeQuery = true,value = "select count(*) from message where vue=0 and recepteur_id= :id or fournisseur_id= :id")
+    Message findMessageByid(Integer id);
+
+    @Query(nativeQuery = true, value = "select count(*) from message where vue=0 and recepteur_id= :id or fournisseur_id= :id")
     Integer numbermessage(@Param("id") Integer id);
+
+    @Query(nativeQuery = true, value = "select * from message where emetteur_id=:id or recepteur_id= :id  or fournisseur_id= :id")
+    List<Message> findAllMessageByEmetteurOrRecepteurOrFournisseur(@Param("id") Integer id);
 
 }

@@ -184,60 +184,73 @@ public class MaterielService {
         newImprimente.setEnsiegnant(imprimente1.getEnsiegnant());
         this.imprimanteRepository.save(newImprimente);
     }
-    public List<BesoinChefOrdinateurDto> getMaterielsOrdinateursBesoins(String departement) throws Exception {
-        List<BesoinChefOrdinateurDto> list = new ArrayList<>();
-        List<Ensiegnant> ens=enseignantRepository.findEnsiegnantByDepartementEquals(departement);
-        for (int i =0;i<ens.size();i++){
-            System.out.println("enseignat"+ens.get(i).getNom());
-            List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens.get(i));
-            for (int j =0;j<matList.size();j++){
-                Materiel mat = matList.get(j);
-                if(mat!=null){
-                    Ordinateur ordinateur=ordinateurRepository.findOrdinateurById(mat.getId());
-                    if (ordinateur!=null){
-                        User user= userRepository.findUserById(ens.get(i).getId());
-                        if(user!=null){
-                            BesoinChefOrdinateurDto materielOrdinateurDTO= BesoinChefOrdinateurDto.builder()
+    public List<BesoinChefOrdinateurDto> getMaterielsOrdinateursBesoins(HttpServletRequest request) throws Exception {
+        String token = request.getHeader("Authorization");
+        String jwt = token.substring(7);
+        User userChef = userRepository.findUserById(tokenRepository.findTokenByToken(jwt).getUser().getId());
+        Optional<Ensiegnant> ensiegnant = enseignantRepository.findById(userChef.getId());
+        if(ensiegnant.isPresent()){
+            List<BesoinChefOrdinateurDto> list = new ArrayList<>();
+            List<Ensiegnant> ens=enseignantRepository.findEnsiegnantByDepartementEquals(ensiegnant.get().getDepartement());
+            for (int i =0;i<ens.size();i++){
+                System.out.println("enseignat"+ens.get(i).getNom());
+                List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens.get(i));
+                for (int j =0;j<matList.size();j++){
+                    Materiel mat = matList.get(j);
+                    if(mat!=null){
+                        Ordinateur ordinateur=ordinateurRepository.findOrdinateurById(mat.getId());
+                        if (ordinateur!=null){
+                            User user= userRepository.findUserById(ens.get(i).getId());
+                            if(user!=null){
+                                BesoinChefOrdinateurDto materielOrdinateurDTO= BesoinChefOrdinateurDto.builder()
+                                        .id(mat.getId())
+                                        .nom(user.getNom())
+                                        .prenom(user.getPrenom())
+                                        .cpu(ordinateur.getCpu())
+                                        .ram(ordinateur.getRam())
+                                        .ecran(ordinateur.getEcran())
+                                        .disque(ordinateur.getDisque())
+                                        .build();
+                                list.add(materielOrdinateurDTO);
+                            }}
+                    }}
+            }
+            return list;
+        }
+        return null;
+    }
+
+    public List<BesoinChefImprimenteDto> getMaterielsImprimentesBesoins(HttpServletRequest request) throws Exception {
+        String token = request.getHeader("Authorization");
+        String jwt = token.substring(7);
+        User userChef = userRepository.findUserById(tokenRepository.findTokenByToken(jwt).getUser().getId());
+        Optional<Ensiegnant> ensiegnant = enseignantRepository.findById(userChef.getId());
+        if(ensiegnant.isPresent()){
+            List<BesoinChefImprimenteDto> list = new ArrayList<>();
+            List<Ensiegnant> ens=enseignantRepository.findEnsiegnantByDepartementEquals(ensiegnant.get().getDepartement());
+            for (int i =0;i<ens.size();i++){
+                System.out.println("enseignat"+ens.get(i).getNom());
+                List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens.get(i));
+                for (int j =0;j<matList.size();j++){
+                    Materiel mat = matList.get(j);
+                    if(mat!=null){
+                        Imprimente imprimente=imprimanteRepository.findImprimenteById(mat.getId());
+                        if (imprimente!=null){
+                            User user= userRepository.findUserById(ens.get(i).getId());
+                            BesoinChefImprimenteDto besoinChefImprimenteDto= BesoinChefImprimenteDto.builder()
                                     .id(mat.getId())
                                     .nom(user.getNom())
                                     .prenom(user.getPrenom())
-                                    .cpu(ordinateur.getCpu())
-                                    .ram(ordinateur.getRam())
-                                    .ecran(ordinateur.getEcran())
-                                    .disque(ordinateur.getDisque())
-
+                                    .resolution(imprimente.getResolution())
+                                    .vitesse(imprimente.getVitesse())
                                     .build();
-                            list.add(materielOrdinateurDTO);
-                        }}
-                }}
+                            list.add(besoinChefImprimenteDto);
+                        }
+                    }}
+            }
+            return list;
         }
-        return list;
-    }
-
-    public List<BesoinChefImprimenteDto> getMaterielsImprimentesBesoins(String departement) throws Exception {
-        List<BesoinChefImprimenteDto> list = new ArrayList<>();
-        List<Ensiegnant> ens=enseignantRepository.findEnsiegnantByDepartementEquals(departement);
-        for (int i =0;i<ens.size();i++){
-            System.out.println("enseignat"+ens.get(i).getNom());
-            List<Materiel> matList = matereilRepository.findMaterielByEnsiegnantAndAppelOffreNullAndVerifieIsFalse(ens.get(i));
-            for (int j =0;j<matList.size();j++){
-                Materiel mat = matList.get(j);
-                if(mat!=null){
-                    Imprimente imprimente=imprimanteRepository.findImprimenteById(mat.getId());
-                    if (imprimente!=null){
-                        User user= userRepository.findUserById(ens.get(i).getId());
-                        BesoinChefImprimenteDto besoinChefImprimenteDto= BesoinChefImprimenteDto.builder()
-                                .id(mat.getId())
-                                .nom(user.getNom())
-                                .prenom(user.getPrenom())
-                                .resolution(imprimente.getResolution())
-                                .vitesse(imprimente.getVitesse())
-                                .build();
-                        list.add(besoinChefImprimenteDto);
-                    }
-                }}
-        }
-        return list;
+        return null;
     }
     public void validOrdinateurChef(Ordinateur newOrdinateur){
         Ordinateur ordinateur =ordinateurRepository.findOrdinateurById(newOrdinateur.getId());

@@ -86,13 +86,13 @@ public class MaterielController {
         materielService.validImprimenteChef(imprimente);
     }
     @CrossOrigin("*")
-    @GetMapping(value = "/getBesoinsOrdinateurChef/{departement}")
-    public ResponseEntity<List<BesoinChefOrdinateurDto>> getBesoinsChef(@PathVariable String departement) throws Exception {
-        return new ResponseEntity<>(materielService.getMaterielsOrdinateursBesoins(departement), HttpStatus.OK);
+    @GetMapping(value = "/getBesoinsOrdinateurChef")
+    public ResponseEntity<List<BesoinChefOrdinateurDto>> getBesoinsChef(HttpServletRequest request) throws Exception {
+        return new ResponseEntity<>(materielService.getMaterielsOrdinateursBesoins(request), HttpStatus.OK);
     }
     @CrossOrigin("*")
-    @GetMapping(value = "/getBesoinsImprimentesChef/{departement}")
-    public ResponseEntity<List<BesoinChefImprimenteDto>> getBesoinsImprimentesChef(@PathVariable String departement) throws Exception {
-        return new ResponseEntity<>(materielService.getMaterielsImprimentesBesoins(departement), HttpStatus.OK);
+    @GetMapping(value = "/getBesoinsImprimentesChef")
+    public ResponseEntity<List<BesoinChefImprimenteDto>> getBesoinsImprimentesChef(HttpServletRequest request) throws Exception {
+        return new ResponseEntity<>(materielService.getMaterielsImprimentesBesoins(request), HttpStatus.OK);
     }
 }

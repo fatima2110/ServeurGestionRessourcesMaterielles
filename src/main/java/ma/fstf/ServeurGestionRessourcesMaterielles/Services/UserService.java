@@ -2,14 +2,8 @@ package ma.fstf.ServeurGestionRessourcesMaterielles.Services;
 
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.PassWordDTO;
 import ma.fstf.ServeurGestionRessourcesMaterielles.DTO.UserDTO;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Ensiegnant;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Materiel;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Models.Role;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Models.User;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.EnseignantRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.MatereilRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.TokenRepository;
-import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.UserRepository;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Models.*;
+import ma.fstf.ServeurGestionRessourcesMaterielles.Repositories.*;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Utils.UserNotFoundException;
 import ma.fstf.ServeurGestionRessourcesMaterielles.Utils.WrongPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +30,10 @@ public class UserService {
     private TokenRepository tokenRepository;
     @Autowired
     private MatereilRepository matereilRepository;
+    @Autowired
+    private MessageRepository messageRepository;
+    @Autowired
+    private AffectationRepository affectationRepository;
 
     @Transactional(readOnly = true)
     public User getUserByLogin(String login){
@@ -87,17 +85,24 @@ public class UserService {
         System.err.println("token deleted");
         if(user.getRole().name().equals("ENSEIGNANT") || user.getRole().name().equals("CHEF_DEPARTEMENT")){
             Ensiegnant ensiegnant = enseignantRepository.findById(user.getId()).get();
-           List<Materiel> materiels = matereilRepository.findMaterielByEnsiegnant(ensiegnant);
-           for(int i = 0;i<materiels.size();i++){
+            List<Materiel> materiels = matereilRepository.findMaterielByEnsiegnant(ensiegnant);
+            List<Message> messages = messageRepository.findAllMessageByEmetteurOrRecepteurOrFournisseur(user.getId());
+            List<Affectation> affectations = affectationRepository.findAffectationByEnsiegnant(ensiegnant);
+            //affectationRepository.deleteAll(affectations);
+            messageRepository.deleteAll(messages);
+
+            for(int i = 0;i<affectations.size();i++){
+                affectations.get(i).setEnsiegnant(null);
+                affectationRepository.save(affectations.get(i));
+            }
+
+            for(int i = 0;i<materiels.size();i++){
                Materiel materiel = matereilRepository.findMaterielById(materiels.get(i).getId());
                materiel.setEnsiegnant(null);
                matereilRepository.save(materiel);
-               System.err.println("materiel"+ i+1+" updated");
            }
-            System.err.println("materiels updated");
         }
         userRepository.deleteById(id);
-        System.err.println("user deleted");
     }
 
     public void editUser(UserDTO userDTO, HttpServletRequest request) {
